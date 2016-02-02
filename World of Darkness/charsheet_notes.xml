@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+
+  <windowclass name="charsheet_notes">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <script>
+      function onInit()
+        local linename = getDatabaseNode().createChild("gameline","string").getValue();
+        local gameline = LineManager.getLine(linename);
+        if gameline and gameline.onWindowInit then
+          gameline.onWindowInit(self);
+        end
+        if User.isHost() then
+          --[[ GM view, include GM notes ]]
+          gmframe.setVisible(true);
+          gmframelabel.setVisible(true);
+          gmnotes.setVisible(true);
+          frame.setAnchoredHeight(395);
+          notelabel.setValue("Player Notes");
+        else
+          --[[ Player view, exclude GM notes ]]
+          gmframe.setVisible(false);
+          gmframelabel.setVisible(false);
+          gmnotes.setVisible(false);
+          frame.setAnchoredHeight(590);
+          notelabel.setValue("Notes");
+        end
+      end
+    </script>
+    <sheetdata>
+      <!-- PLAYER NOTES -->
+      <genericcontrol name="frame">
+        <anchored>
+          <top>
+            <anchor>top</anchor>
+            <offset>8</offset>
+          </top>
+          <left>
+            <anchor>left</anchor>
+            <offset>12</offset>
+          </left>
+          <right>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <size>
+            <height>395</height>
+          </size>
+        </anchored>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <stringcontrol name="notelabel">
+        <anchored>
+          <to>frame</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Notes</static>
+      </stringcontrol>
+      <stringfield name="notes">
+        <anchored>
+          <top>
+            <parent>frame</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>frame</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>frame</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>frame</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </stringfield>
+      <!-- GM NOTES -->
+      <genericcontrol name="gmframe">
+        <anchored>
+          <to>frame</to>
+          <position>below</position>
+          <offset>0</offset>
+          <size>
+            <height>195</height>
+          </size>
+        </anchored>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+        <invisible/>
+      </genericcontrol>
+      <stringcontrol name="gmframelabel">
+        <anchored>
+          <to>gmframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Storyteller Notes</static>
+        <invisible/>
+      </stringcontrol>
+      <stringfield name="gmnotes">
+        <anchored>
+          <top>
+            <parent>gmframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>gmframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>gmframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>gmframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+        <invisible/>
+      </stringfield>
+    </sheetdata>
+  </windowclass>
+
+</root>

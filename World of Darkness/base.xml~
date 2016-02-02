@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0" release="0.242" logo="logo.png">
+
+  <description>
+    <text>The life you lead is a lie. Your darkest fears aren't make-believe. They're real.</text>
+    <website>http://www.white-wolf.com</website>
+  </description>
+  
+  <includefile source="fonts.xml" />
+  <includefile source="graphics.xml" />
+  <includefile source="game_elements.xml" />
+  <includefile source="common_templates.xml" />
+  <includefile source="adventure.xml" />
+  <includefile source="charsheet.xml" />
+  <includefile source="utility.xml" />
+  <includefile source="library.xml" />
+  <includefile source="reference.xml" />
+  <includefile source="desktop.xml" />
+  
+  <!-- GAME LINE SUPPORT -->
+  <script name="LineManager" file="scripts/linemanager.lua" />
+
+  <!-- GAME LINES -->
+  <includefile source="Mortal.xml" />
+
+  <!-- PREFERENCE MANAGER SCRIPTS -->
+  <script name="PreferenceManager" file="scripts/preferencemanager.lua" />
+  <script name="Preferences" file="scripts/preferences.lua" />
+
+  <!-- BASIC FG SCRIPTS -->
+  <script name="ChatManager" file="scripts/chatmanager.lua" />
+  <script name="GmIdentityManager" file="scripts/gmidentitymanager.lua" />
+  <script name="ModifierStack" file="scripts/modifierstack.lua" />
+  <script name="ExportManager" file="scripts/exportmanager.lua" />
+  <script name="WindowManager" file="scripts/windowmanager.lua" />
+
+  <!-- DESKTOP MANAGER SCRIPTS -->
+  <script name="DesktopManager" file="scripts/desktopmanager.lua" />
+  <script name="Desktop" file="scripts/desktop.lua" />
+
+  <!-- NOTE MANAGER SCRIPT -->
+  <script name="NoteManager" file="scripts/notemanager.lua" />
+
+  <!-- COMBAT MANAGER SCRIPT -->
+  <script name="CombatManager" file="scripts/combatmanager.lua" />
+
+  <!-- CHAT GROUPS -->
+  <script name="ChatGroup" file="scripts/chatgroup.lua" />
+
+  <desktopframe>desktop</desktopframe>
+  <tokenroot source="tokens" />
+</root>

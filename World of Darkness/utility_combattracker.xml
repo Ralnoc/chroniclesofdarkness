@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  
+  <windowclass name="combattracker" source="combattracker">
+    <frame>ctbox</frame>
+    <placement>
+      <size>
+        <width>557</width>
+        <height>512</height>
+      </size>
+    </placement>
+    <sharable/>
+    <sizelimits>
+      <minimum>
+        <height>210</height>
+      </minimum>
+      <dynamic>
+        <resize>vertical</resize>
+      </dynamic>
+    </sizelimits>
+    <nodelete />
+    <sheetdata>
+      <CloseBox>
+        <position>-21,14</position>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+        </script>
+      </CloseBox>
+      <stringcontrol>
+        <bounds>57,15,30,10</bounds>
+        <font>sheetlabelsmall</font>
+        <color>#ffffffff</color>
+        <static>Name</static>
+      </stringcontrol>
+      <stringcontrol>
+        <bounds>159,15,20,10</bounds>
+        <font>sheetlabelsmall</font>
+        <color>#ffffffff</color>
+        <static>Init</static>
+      </stringcontrol>
+
+      <windowlist name="list">
+        <class>combattracker_entry</class>
+        <bounds>0,30,-20,-50</bounds>
+        <datasource>.list</datasource>
+        <allowcreate/>
+        <acceptdrop class="mini_charsheet" fields="name,#hp,#wounds" />
+        <acceptdrop class="charsheet" fields="name,#hp,#wounds" />
+        <acceptdrop class="npc" fields="name,hp" />
+        <script file="scripts/combattracker.lua" />
+      </windowlist>
+
+      <scrollercontrol>
+        <anchored>
+          <to>list</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>list</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+      
+      <genericcontrol>
+        <bounds>28,-53,33,40</bounds>
+        <activeicon>indicator_ctactive</activeicon>
+        <script>
+          function onInit()
+            if not User.isHost() then
+              setVisible(false);
+              return;
+            end
+            widget = addBitmapWidget(activeicon[1]);
+            setHoverCursor("hand");
+          end
+          
+          function onDrag(button, x, y, draginfo)
+            draginfo.setType("combattrackeractivation");
+            draginfo.setIcon(activeicon[1]);
+            widget.setVisible(false);
+            
+            return true;
+          end
+          
+          function onDragEnd(draginfo)
+            widget.setVisible(true);
+          end
+        </script>
+      </genericcontrol>
+      <buttoncontrol>
+        <bounds>62,-45,33,26</bounds>
+        <icon>
+          <normal>button_ctnextactor</normal>
+          <pressed>button_ctnextactor_down</pressed>
+        </icon>
+        <tooltip>
+          <text>Next actor</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+
+          function onButtonPress()
+            window.list.nextActor();
+          end
+          
+          function onDrag(button, x, y, draginfo)
+            draginfo.setType("combattrackernextactor");
+            draginfo.setIcon(icon[1].normal[1]);
+            return true;
+          end
+        </script>
+      </buttoncontrol>
+
+      <genericcontrol>
+        <bounds>125,-43,20,20</bounds>
+        <icon>indicator_npcs_clear</icon>
+        <tooltip>
+          <text>Clear all NPCs</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.list.clearAllNpcs();
+            return true;
+          end
+        </script>
+      </genericcontrol>
+      <genericcontrol>
+        <bounds>150,-43,20,20</bounds>
+        <icon>indicator_effects_clear</icon>
+        <tooltip>
+          <text>Clear all effects</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.list.clearAllEffects();
+            return true;
+          end
+        </script>
+      </genericcontrol>
+
+      <combattrackerffsource>
+        <bounds>200,-43,20,20</bounds>
+        <icon>indicator_ctfffriend</icon>
+        <value>friend</value>
+        <tooltip>
+          <text>Friendly</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+        </script>
+      </combattrackerffsource>
+      <combattrackerffsource>
+        <bounds>227,-43,20,20</bounds>
+        <icon>indicator_ctffneutral</icon>
+        <value>neutral</value>
+        <tooltip>
+          <text>Neutral</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+        </script>
+      </combattrackerffsource>
+      <combattrackerffsource>
+        <bounds>254,-43,20,20</bounds>
+        <icon>indicator_ctfffoe</icon>
+        <value>foe</value>
+        <tooltip>
+          <text>Hostile</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+        </script>
+      </combattrackerffsource>
+      
+      <stringcontrol name="roundcounterlabel">
+        <bounds>360,-39,50,15</bounds>
+        <font>sheetlabel</font>
+        <color>#ffffffff</color>
+        <static>Round</static>
+      </stringcontrol>
+      <NumberField name="roundcounter">
+        <anchored>
+          <to>roundcounterlabel</to>
+          <position>righthigh</position>
+          <offset>0,-6</offset>
+          <size>
+            <width>40</width>
+            <height>25</height>
+          </size>
+        </anchored>
+        <frame>
+          <name>modifier</name>
+          <offset>3,3,3,3</offset>
+        </frame>
+        <font>sheetnumber</font>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setEnabled(false);
+            end
+          end
+        </script>
+      </NumberField>
+      <buttoncontrol>
+        <anchored>
+          <to>roundcounter</to>
+          <position>righthigh</position>
+          <offset>5,0</offset>
+          <size>
+            <width>33</width>
+            <height>26</height>
+          </size>
+        </anchored>
+        <icon>
+          <normal>button_ctnextround</normal>
+          <pressed>button_ctnextround_down</pressed>
+        </icon>
+        <tooltip>
+          <text>Next round</text>
+        </tooltip>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setVisible(false);
+            end
+          end
+
+          function onButtonPress()
+            window.list.nextRound();
+          end
+          
+          function onDrag(button, x, y, draginfo)
+            draginfo.setType("combattrackernextround");
+            draginfo.setIcon(icon[1].normal[1]);
+            return true;
+          end
+        </script>
+      </buttoncontrol>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="combattracker_entry">
+    <frame>ctentrybox</frame>
+    <sizelimits>
+      <minimum>
+        <height>40</height>
+      </minimum>
+    </sizelimits>
+    <script file="scripts/combattracker_entry.lua" />
+    <sheetdata>
+      <!-- hidden field -->
+      <stringfield name="fof">
+        <bounds>0,0,0,0</bounds>
+        <invisible/>
+        <static/>
+      </stringfield>
+      <!-- Basics -->
+      <tokenfield name="token">
+        <bounds>33,6,23,23</bounds>
+        <empty>indicator_emptytoken</empty>
+        <script file="scripts/combattracker_token.lua" />
+      </tokenfield>
+      <StringField name="name">
+        <anchored>
+          <left>
+            <parent>token</parent>
+            <anchor>right</anchor>
+            <offset>1</offset>
+          </left>
+          <top>
+            <parent>token</parent>
+            <anchor>top</anchor>
+            <offset>7</offset>
+          </top>
+          <size>
+            <width>90</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <font>sheettextsmall</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,1,0,0</offset>
+        </frame>
+        <script>
+          function onValueChanged()
+            if User.isHost() then
+              window.token.setName(getValue());
+              window.nameChanged();
+            end
+          end
+          
+          function onDrag(button, x, y, draginfo)
+            if User.isHost() then
+              draginfo.setType("combattrackerentry");
+              draginfo.setStringData(getValue());
+              draginfo.setCustomData(window);
+              return true;
+            end
+          end
+          
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if User.isHost() then
+              setHoverCursor("hand");
+            else
+              setFrame("");
+              setReadOnly(true);
+            end
+          end
+
+          function onLinkUpdated(source)
+            if User.isHost() then
+              setValue(source.getValue());
+            end
+          end
+          
+          function setLink(dbnode,readonly)
+            if dbnode and User.isHost() then
+              linknode = dbnode;
+              linknode.onUpdate = onLinkUpdated;
+              onLinkUpdated(linknode);
+              addBitmapWidget("indicator_linked").setPosition("bottomright", -5, -7);
+              if readonly then
+                setReadOnly(true);
+                setFrame("");
+              else
+                setReadOnly(false);
+              end
+            end
+          end
+        </script>
+      </StringField>
+      <checkbox name="shownpc">
+        <anchored>
+          <to>token</to>
+          <position>righthigh</position>
+          <offset>0,-5</offset>
+          <size>
+            <width>18</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <stateicons>
+          <on>indicator_visible</on>
+          <off>indicator_invisible</off>
+        </stateicons>
+        <script>
+          function onValueChanged()
+            if User.isHost() then
+              window.token.updateVisibility();
+              window.windowlist.forceUpdate();
+            end
+          end
+        </script>
+        <tooltip>
+          <text>Show/hide NPC on players' tracker</text>
+        </tooltip>
+      </checkbox>
+      <NumberField name="initiative">
+        <anchored>
+          <to>token</to>
+          <position>righthigh</position>
+          <offset>95,1</offset>
+          <size>
+            <width>34</width>
+            <height>22</height>
+          </size>
+        </anchored>
+        <hideonvalue>0</hideonvalue>
+        <font>sheetnumbersmall</font>
+        <frame>
+          <name>bonus</name>
+          <offset>2,2,2,1</offset>
+        </frame>
+        <keyeditframe>
+          <name>sheetfocus</name>
+          <offset>2,2,2,2</offset>
+        </keyeditframe>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setReadOnly(true);
+            end
+          end
+          
+          function onLinkUpdated(source)
+            if User.isHost() then
+              setValue(source.getValue());
+            end
+          end
+          
+          function setLink(dbnode,readonly)
+            if dbnode and User.isHost() then
+              linknode = dbnode;
+              linknode.onUpdate = onLinkUpdated;
+              onLinkUpdated(linknode);
+              addBitmapWidget("indicator_linked").setPosition("bottomright", -5, -5);
+              if readonly then
+                setReadOnly(true);
+                setFrame("");
+              else
+                setReadOnly(false);
+              end
+            end
+          end
+        
+          function onValueChanged()
+            if linknode and User.isHost() then
+              linknode.setValue(getValue());
+            end
+            window.windowlist.applySort();
+          end
+        </script>
+      </NumberField>
+      <!-- Health and Willpower -->
+      <StringControl name="healthlabel">
+        <anchored>
+          <to>initiative</to>
+          <position>righthigh</position>
+          <offset>5,-1</offset>
+          <size>
+            <width>47</width>
+          </size>
+        </anchored>
+        <font>sheetlabelsmall</font>
+        <static>Health</static>
+      </StringControl>
+      <DotBoxControl name="health">
+        <anchored>
+          <to>initiative</to>
+          <position>righthigh</position>
+          <offset>57,0</offset>
+          <size>
+            <width>120</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <dots>12</dots>
+        <nodots/>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setEnabled(false);
+            end
+          end
+          
+          function setLink(dbnode,readonly)
+            if dbnode and User.isHost() then
+              setSource(dbnode);
+              window.linkicon.setVisible(true);
+              if readonly then
+                setEnabled(false);
+              else
+                setEnabled(true);
+              end
+            end
+          end
+        </script>
+        <spacing>
+          <vertical>10</vertical>
+        </spacing>
+      </DotBoxControl>
+      <StringControl name="willpowerlabel">
+        <anchored>
+          <to>initiative</to>
+          <position>righthigh</position>
+          <offset>5,13</offset>
+          <size>
+            <width>47</width>
+          </size>
+        </anchored>
+        <font>sheetlabelsmall</font>
+        <static>Willpower</static>
+      </StringControl>
+      <DotBoxControl name="willpower">
+        <anchored>
+          <to>initiative</to>
+          <position>righthigh</position>
+          <offset>57,14</offset>
+          <size>
+            <width>100</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <degree>1</degree>
+        <dots>10</dots>
+        <nodenames>
+          <slash>spent</slash>
+        </nodenames>
+        <nodots/>
+        <script>
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            if not User.isHost() then
+              setEnabled(false);
+            end
+          end
+          
+          function setLink(dbnode,readonly)
+            if dbnode and User.isHost() then
+              setSource(dbnode);
+              window.linkicon.setVisible(true);
+              if readonly then
+                setEnabled(false);
+              else
+                setEnabled(true);
+              end
+            end
+          end
+        </script>
+        <spacing>
+          <vertical>10</vertical>
+        </spacing>
+      </DotBoxControl>
+      <genericcontrol name="linkicon">
+        <anchored>
+          <to>willpower</to>
+          <position>righthigh</position>
+          <offset>6,-3</offset>
+          <size>
+            <width>12</width>
+            <height>12</height>
+          </size>
+        </anchored>
+        <icon>indicator_linked</icon>
+        <invisible/>
+      </genericcontrol>
+      <genericcontrol name="midanchor">
+        <anchored>
+          <left>
+            <parent>initiative</parent>
+            <anchor>right</anchor>
+            <offset>181</offset>
+          </left>
+          <top>
+            <parent>initiative</parent>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>3</width>
+            <height>20</height>
+          </size>
+        </anchored>
+      </genericcontrol>
+
+      <genericcontrol name="rightanchor">
+        <anchored>
+          <right>
+            <anchor>right</anchor>
+            <offset>-23</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>1</offset>
+          </top>
+          <size>
+            <width>1</width>
+            <height>20</height>
+          </size>
+        </anchored>
+      </genericcontrol>
+      <genericcontrol name="friendfoe">
+        <anchored>
+          <right>
+            <parent>rightanchor</parent>
+            <anchor>left</anchor>
+            <relation>relative</relation>
+            <offset>-4</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>8</offset>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>indicator_ctffempty</icon>
+        <stateicons>
+          <friend>indicator_ctfffriend</friend>
+          <neutral>indicator_ctffneutral</neutral>
+          <foe>indicator_ctfffoe</foe>
+        </stateicons>
+        <script>
+          function onDrop(x, y, draginfo)
+            if draginfo.isType("combattrackerff") then
+              state = draginfo.getStringData();
+              window.fof.setValue(state);
+              window.token.updateUnderlay();
+              setIcon(stateicons[1][state][1]);
+            end
+          end
+          
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            local s = getState();
+            if s=="friend" then
+              setState("neutral");
+            elseif s=="neutral" then
+              setState("foe");
+            else
+              setState("friend");
+            end
+          end
+          
+          function onInit()
+            local state = window.fof.getValue();
+            if stateicons[1][state] then
+              setIcon(stateicons[1][state][1]);
+            end
+            window.token.updateUnderlay();
+          end
+
+          function setState(s)
+            state = s;
+            window.fof.setValue(state);
+            if stateicons[1][state] then
+              setIcon(stateicons[1][state][1]);
+            else
+              setIcon(icon[1]);
+            end
+            window.token.updateUnderlay();
+          end
+          
+          function getState()
+            return window.fof.getValue();
+          end
+        </script>
+      </genericcontrol>
+      <genericcontrol name="identity">
+        <anchored>
+          <right>
+            <parent>rightanchor</parent>
+            <anchor>left</anchor>
+            <relation>relative</relation>
+            <offset>-4</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>8</offset>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>button_identityactivate</icon>
+        <script>
+          function onClickDown(button, x, y)
+            return true;
+          end
+          
+          function onClickRelease(button, x, y)
+            GmIdentityManager.addIdentity(window.name.getValue());
+            return true;
+          end
+        </script>
+      </genericcontrol>
+      <windowreferencefield name="link">
+        <anchored>
+          <right>
+            <anchor>right</anchor>
+            <offset>-4</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>9</offset>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>
+          <normal>button_openwindow</normal>
+        </icon>
+        <invisible />
+      </windowreferencefield>
+
+      <!-- Panel List -->
+      <windowlist name="panels">
+        <anchored>
+          <top>
+            <parent>name</parent>
+            <anchor>bottom</anchor>
+          </top>
+          <left>
+            <anchor>left</anchor>
+          </left>
+          <right>
+            <anchor>right</anchor>
+          </right>
+        </anchored>
+        <class>notesmall</class>
+        <noscroll/>
+        <skipempty/>
+        <script>
+          function onFilter(win)
+            if win.isDisplayed then
+              return win.isDisplayed();
+            else
+              return true;
+            end
+          end
+          
+          function onListRearranged()
+            window.setSpacerState();
+          end
+        </script>
+      </windowlist>
+
+      <!-- Spacer -->
+      <genericcontrol name="spacer">
+        <anchored>
+          <top>
+            <parent>panels</parent>
+            <anchor>bottom</anchor>
+          </top>
+          <left>
+            <anchor>left</anchor>
+          </left>
+          <right>
+            <anchor>right</anchor>
+          </right>
+          <size>
+            <height>10</height>
+          </size>
+        </anchored>
+        <invisible />
+        <disabled />
+      </genericcontrol>
+
+      <genericcontrol name="active">
+        <anchored>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <bottom>
+            <anchor>bottom</anchor>
+          </bottom>
+          <left>
+            <anchor>left</anchor>
+          </left>
+          <size>
+            <width>33</width>
+          </size>
+        </anchored>
+        <icon>indicator_ctpassive</icon>
+        <activeicon>indicator_ctactive</activeicon>
+        <script file="scripts/combattracker_active.lua" />
+      </genericcontrol>
+    </sheetdata>
+  </windowclass>
+
+  <template name="combattrackerffsource">
+    <genericcontrol>
+      <script>
+        function onInit()
+          setHoverCursor("hand");
+        end
+      
+        function onDrag(button, x, y, draginfo)
+          draginfo.setType("combattrackerff");
+
+          draginfo.setIcon(icon[1]);
+          draginfo.setStringData(value[1]);
+
+          return true;
+        end
+      </script>
+    </genericcontrol>
+  </template>
+
+</root>

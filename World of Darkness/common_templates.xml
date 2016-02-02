@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+
+  <template name="CloseBox">
+    <genericcontrol>
+      <position mergerule="replace">0,0</position>
+      <anchored>
+        <left>
+          <anchor>left</anchor>
+          <offset>0</offset>
+        </left>
+        <top>
+          <anchor>top</anchor>
+          <offset>0</offset>
+        </top>
+        <size>
+          <width>12</width>
+          <height>12</height>
+        </size>
+      </anchored>
+      <icon>button_close</icon>
+      <script>
+        function onInit()
+          local posn = position[1];
+          local i = string.find(posn,",");
+          if i then
+            local x = tonumber(string.sub(posn,1,i-1)) or 0;
+            local y = tonumber(string.sub(posn,i+1)) or 0;
+            if x&lt;0 then
+              resetAnchor("left");
+              setAnchor("right","","right","absolute",x);
+            else
+              setAnchor("left","","left","absolute",x);
+            end
+            if y&lt;0 then
+              resetAnchor("top");
+              setAnchor("bottom","","bottom","absolute",y);
+            else
+              setAnchor("top","","top","absolute",y);
+            end
+          end
+          if PreferenceManager.load(Preferences.CloseBox.PrefName)~=Preferences.Yes then
+            setVisible(false);
+          end
+        end
+        function onClickDown(...)
+          return true;
+        end
+        function onClickRelease(...)
+          window.close();
+        end
+        function onDrag(...)
+          return true;
+        end
+      </script>
+      <tooltip>
+        <text>Close Window</text>
+      </tooltip>
+    </genericcontrol>
+  </template>
+
+  <template name="NumberField">
+    <numberfield>
+      <!--fontcolor>
+        <normal>#000000</normal>
+        <invalid>#ff0000</invalid>
+        <readonly>#404040</readonly>
+      </fontcolor-->
+      <script file="scripts/template_NumberControl.lua"/>
+    </numberfield>
+  </template>
+  <template name="NumberControl">
+    <numbercontrol>
+      <!--fontcolor>
+        <normal>#000000</normal>
+        <invalid>#ff0000</invalid>
+        <readonly>#404040</readonly>
+      </fontcolor-->
+      <script file="scripts/template_NumberControl.lua"/>
+    </numbercontrol>
+  </template>
+
+  <template name="StringField">
+    <stringfield>
+      <!--fontcolor>
+        <normal>#000000</normal>
+        <invalid>#ff0000</invalid>
+        <readonly>#404040</readonly>
+      </fontcolor-->
+      <script file="scripts/template_StringControl.lua"/>
+    </stringfield>
+  </template>
+  <template name="StringControl">
+    <stringcontrol>
+      <!--fontcolor>
+        <normal>#000000</normal>
+        <invalid>#ff0000</invalid>
+        <readonly>#404040</readonly>
+      </fontcolor-->
+      <script file="scripts/template_StringControl.lua"/>
+    </stringcontrol>
+  </template>
+
+  <template name="DotControl">
+    <genericcontrol>
+      <default mergerule="replace">0</default>
+      <dots mergerule="replace">5</dots>
+      <rowcount mergerule="replace">1</rowcount>
+      <spacing>
+        <horizontal mergerule="replace">10</horizontal>
+        <vertical mergerule="replace">10</vertical>
+      </spacing>
+      <stateicons>
+        <on mergerule="replace">dot_checked</on>
+        <off mergerule="replace">dot_unchecked</off>
+      </stateicons>
+      <script file="scripts/template_dotcontrol.lua" />
+    </genericcontrol>
+  </template>
+
+  <template name="DotBoxControl">
+    <genericcontrol>
+      <boxicons>
+        <empty mergerule="replace">box_empty</empty>
+        <slash mergerule="replace">box_slash</slash>
+        <cross mergerule="replace">box_cross</cross>
+        <star mergerule="replace">box_star</star>
+      </boxicons>
+      <degree mergerule="replace">3</degree>
+      <doticons>
+        <on mergerule="replace">dot_checked</on>
+        <off mergerule="replace">dot_unchecked</off>
+      </doticons>
+      <dots mergerule="replace">10</dots>
+      <nodenames>
+        <cross mergerule="replace">lethal</cross>
+        <slash mergerule="replace">bashing</slash>
+        <star mergerule="replace">aggrevated</star>
+      </nodenames>
+      <script file="scripts/template_dotboxcontrol.lua" />
+      <spacing>
+        <horizontal mergerule="replace">10</horizontal>
+        <vertical mergerule="replace">12</vertical>
+      </spacing>
+    </genericcontrol>
+  </template>
+
+  <template name="radiobutton">
+    <genericcontrol>
+      <stateicons>
+        <on>indicator_checkon</on>
+        <off>indicator_checkoff</off>
+      </stateicons>
+      <script file="scripts/template_radiobutton.lua" />
+    </genericcontrol>
+  </template>
+
+  <template name="linkednumber">
+    <NumberField>
+      <source mergerule="resetandadd" />
+      <script file="scripts/template_linkednumber.lua" />
+    </NumberField>
+  </template>
+  
+  <template name="modifiernumber">
+    <linkednumber>
+      <nokeyedit />
+      <noreset />
+      <script file="scripts/template_modifiernumber.lua" />
+    </linkednumber>
+  </template>
+  
+  <template name="textlistitemvalue">
+    <stringfield name="value">
+      <font>sheettext</font>
+      <multilinespacing>20</multilinespacing>
+      <frame>
+        <name>textline</name>
+      </frame>
+      <script>
+        function onEnter()
+          local new = window.windowlist.createWindow();
+          new[getName()].setFocus();
+        end
+        
+        function onNavigateDown()
+          local next = window.windowlist.getNextWindow(window);
+          if next then
+            next[getName()].setFocus();
+            next[getName()].setCursorPosition(1);
+            next[getName()].setSelectionPosition(1);
+          end
+        end
+        
+        function onNavigateUp()
+          local prev = window.windowlist.getPrevWindow(window);
+          if prev then
+            prev[getName()].setFocus();
+            prev[getName()].setCursorPosition(#prev[getName()].getValue()+1);
+            prev[getName()].setSelectionPosition(#prev[getName()].getValue()+1);
+          end
+        end
+        
+        function onNavigateRight()
+          if tabtarget and tabtarget[1] and tabtarget[1].next and tabtarget[1].next[1] then
+            local target = window[tabtarget[1].next[1]];
+
+            if type(target) == "stringcontrol" then
+              target.setFocus();
+              target.setCursorPosition(1);
+              target.setSelectionPosition(1);
+            end
+          end
+        end
+        
+        function onNavigateLeft()
+          if tabtarget and tabtarget[1] and tabtarget[1].prev and tabtarget[1].prev[1] then
+            local target = window[tabtarget[1].prev[1]];
+
+            if type(target) == "stringcontrol" then
+              target.setFocus();
+              target.setCursorPosition(#target.getValue()+1);
+              target.setSelectionPosition(#target.getValue()+1);
+            end
+          end
+        end
+        
+        function onDeleteUp()
+          if getValue() == "" and not nodelete then
+            local target = window.windowlist.getPrevWindow(window);
+            if target then
+              target[getName()].setFocus();
+              target[getName()].setCursorPosition(#target[getName()].getValue()+1);
+              target[getName()].setSelectionPosition(#target[getName()].getValue()+1);
+            end
+            
+            window.getDatabaseNode().delete();
+          end
+        end
+        
+        function onDeleteDown()
+          if getValue() == "" and not nodelete then
+            local target = window.windowlist.getNextWindow(window);
+            if target then
+              target[getName()].setFocus();
+              target[getName()].setCursorPosition(1);
+              target[getName()].setSelectionPosition(1);
+            end
+            
+            window.getDatabaseNode().delete();
+          end
+        end
+        
+        function onGainFocus()
+          window.setFrame("rowshade");
+        end
+        
+        function onLoseFocus()
+          window.setFrame(nil);
+        end
+      </script>
+    </stringfield>
+  </template>
+
+  <template name="sheetbonus">
+    <linkednumber>
+      <frame>
+        <name>bonus</name>
+        <offset>5,5,5,5</offset>
+      </frame>
+      <font>sheetnumber</font>
+      <readonly />
+      <displaysign />
+      <noreset />
+    </linkednumber>
+  </template>
+
+  <template name="sheetmodifier">
+    <linkednumber>
+      <frame>
+        <name>modifier</name>
+        <offset>5,5,5,5</offset>
+      </frame>
+      <keyeditframe>
+        <name>sheetfocus</name>
+        <offset>5,5,5,5</offset>
+      </keyeditframe>
+      <stateframe>
+        <drophilight>
+          <name>sheetfocus</name>
+          <offset>5,5,5,5</offset>
+        </drophilight>
+      </stateframe>
+      <droptypes>
+        <type>number</type>
+      </droptypes>
+      <font>sheetnumber</font>
+      <displaysign />
+    </linkednumber>
+  </template>
+
+  <template name="sheetreadonlymodifier">
+    <linkednumber>
+      <frame>
+        <name>modifier</name>
+        <offset>5,5,5,5</offset>
+      </frame>
+      <font>sheetnumber</font>
+      <readonly />
+      <displaysign />
+    </linkednumber>
+  </template>
+
+  <template name="sheetnumber">
+    <linkednumber>
+      <frame>
+        <name>modifier</name>
+        <offset>5,5,5,5</offset>
+      </frame>
+      <keyeditframe>
+        <name>sheetfocus</name>
+        <offset>5,5,5,5</offset>
+      </keyeditframe>
+      <font>sheetnumber</font>
+      <stateframe>
+        <drophilight>
+          <name>sheetfocus</name>
+          <offset>5,5,5,5</offset>
+        </drophilight>
+      </stateframe>
+      <droptypes>
+        <type>number</type>
+      </droptypes>
+    </linkednumber>
+  </template>
+
+  <template name="labeledstring">
+    <StringField>
+      <font>sheettext</font>
+      <frame mergerule="replace">
+        <name>textlinesmall</name>
+        <offset>0,-2,0,0</offset>
+      </frame>
+      <keyeditframe mergerule="replace">
+        <name>shadelinesmall</name>
+        <offset>0,-2,0,0</offset>
+      </keyeditframe>
+      <script>
+        labelwidget = nil;
+      
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          setLabel(label[1]);
+        end
+        
+        function setLabel(label)
+          if labelwidget then
+            labelwidget.destroy();
+          end
+          labelwidget = addTextWidget("sheetlabelinline", string.upper(label));
+          local w,h = labelwidget.getSize();
+          labelwidget.setPosition("bottomleft", w/2, h/2-3);
+        end
+      </script>
+    </StringField>
+  </template>
+  
+  <template name="labelednumber">
+    <NumberField>
+      <font>sheettext</font>
+      <frame mergerule="replace">
+        <name>textlinesmall</name>
+        <offset>0,-2,0,0</offset>
+      </frame>
+      <keyeditframe mergerule="replace">
+        <name>shadelinesmall</name>
+        <offset>0,-2,0,0</offset>
+      </keyeditframe>
+      <script>
+        labelwidget = nil;
+      
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          labelwidget = addTextWidget("sheetlabelinline", string.upper(label[1]));
+          local w,h = labelwidget.getSize();
+          labelwidget.setPosition("bottomleft", w/2, h/2-3);
+        end
+      </script>
+    </NumberField>
+  </template>
+  
+  <template name="checkbox">
+    <genericcontrol>
+      <stateicons>
+        <on>box_cross</on>
+        <off>box_empty</off>
+      </stateicons>
+      <script file="scripts/template_checkbox.lua" />
+    </genericcontrol>
+  </template>
+  
+  <template name="tabcontrol">
+    <genericcontrol>
+      <frame>
+        <name>tabs</name>
+      </frame>
+      <tab mergerule="resetandadd"/>
+      <script file="scripts/template_tabcontrol.lua" />
+    </genericcontrol>
+  </template>
+  
+  <template name="viewerlist">
+    <genericcontrol>
+      <invalididentityicon>miniportrait_base</invalididentityicon>
+      <portraitset>miniportrait</portraitset>
+      <portraitspacing>21</portraitspacing>
+      <script file="scripts/template_viewerlist.lua" />
+    </genericcontrol>
+  </template>
+
+  <!-- Templates for a column layout on NPC, monster, item, spell sheets -->
+  <template name="columnstringfield">
+    <stringfield>
+      <font>sheettextsmall</font>
+      <frame>
+        <name>modifier</name>
+        <offset>7,5,7,5</offset>
+      </frame>
+      <multilinespacing>15</multilinespacing>
+      <selectioncolor>90ffffff</selectioncolor>
+      <script>
+        function onInit()
+          if anchor then
+            setAnchor("top", anchor[1], "bottom", "relative", 6);
+          else
+            setAnchor("top", "", "top", "absolute", 5);
+          end
+          
+          setAnchor("left", "", "left", "absolute", 85);
+          setAnchor("right", "", "right", "absolute", -7);
+          
+          if getDatabaseNode().isStatic() then
+            setFrame(nil);
+            setFont("chatfont");
+            if getValue() == "" then
+              setVisible(false);
+            end
+          end
+        end
+      </script>
+    </stringfield>
+  </template>
+
+  <template name="columnnumberfield">
+    <NumberField>
+      <noreset />
+      <font>sheettextsmall</font>
+      <frame>
+        <name>modifier</name>
+        <offset>7,4,7,5</offset>
+      </frame>
+      <script>
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          if anchor then
+            setAnchor("top", anchor[1], "bottom", "relative", 6);
+          else
+            setAnchor("top", "", "top", "absolute", 5);
+          end
+          
+          setAnchor("left", "", "left", "absolute", 85);
+          setAnchoredWidth(40);
+          setAnchoredHeight(16);
+          
+          if getDatabaseNode().isStatic() then
+            setFont("chatfont");
+          end
+        end
+      </script>
+    </NumberField>
+  </template>
+  
+  <template name="columnfieldlabel">
+    <stringcontrol>
+      <font>sheetlabelsmallbold</font>
+      <script>
+        function onInit()
+          if anchor then
+            if window[anchor[1]].getDatabaseNode().isStatic() then
+              setAnchor("top", anchor[1], "top", "absolute", 2);
+            else
+              setAnchor("top", anchor[1], "top", "absolute", 4);
+            end
+            setAnchor("left", "", "left", "absolute", 0);
+            
+            if not window[anchor[1]].isVisible() then
+              setVisible(false);
+            end
+          end
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <template name="filtertrigger">
+    <genericcontrol>
+      <icon>search_icon</icon>
+      <widgetposition>
+        <anchor>bottomleft</anchor>
+        <offsetx>5</offsetx>
+        <offsety>-5</offsety>
+      </widgetposition>
+      <script>
+        function onInit()
+          window[target[1]].setVisible(false);
+        end
+        
+        function onClickDown(button, x, y)
+          if button == 1 then
+            setVisible(false);
+            window[target[1]].setVisible(true);
+            window[target[1]].setFocus();
+          elseif button == 2 then
+            window[target[1]].setValue("");
+          end
+
+          return true;
+        end
+        
+        function updateWidget(state)
+          if widget and not state then
+            widget.destroy();
+            widget = nil;
+          elseif not widget and state then
+            widget = addBitmapWidget("indicator_checkon");
+            widget.setPosition(widgetposition[1].anchor[1], widgetposition[1].offsetx[1], widgetposition[1].offsety[1]);
+          end
+        end
+      </script>
+    </genericcontrol>
+  </template>
+  
+  <template name="filter">
+    <stringcontrol>
+      <frame>
+        <name>searchframe</name>
+        <offset>37,45,3,12</offset>
+      </frame>
+      <font>sheettext</font>
+      <script file="scripts/template_filter.lua" />
+    </stringcontrol>
+  </template>
+  
+  <template name="linkstringfield">
+    <stringfield>
+      <underlineoffset>-3</underlineoffset>
+      <nodrag />
+      <script file="scripts/template_linkstringfield.lua" />
+    </stringfield>
+  </template>
+  
+  <template name="staticlinkstringfield">
+    <stringfield>
+      <underlineoffset>-3</underlineoffset>
+      <nodrag />
+      <static />
+      <script file="scripts/template_staticlinkstringfield.lua" />
+    </stringfield>
+  </template>
+  
+  <template name="staticlinkstringcontrol">
+    <stringcontrol>
+      <underlineoffset>-3</underlineoffset>
+      <nodrag />
+      <static />
+      <script file="scripts/template_staticlinkstringfield.lua" />
+    </stringcontrol>
+  </template>
+</root>

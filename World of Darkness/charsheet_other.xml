@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="charsheet_other">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <script>
+      function onInit()
+        local linename = getDatabaseNode().createChild("gameline","string").getValue();
+        local gameline = LineManager.getLine(linename);
+        if gameline and gameline.onWindowInit then
+          gameline.onWindowInit(self);
+        end
+      end
+    </script>
+    <sheetdata>
+      <!-- Merits -->
+      <genericcontrol name="meritframe">
+        <bounds>12,8,240,240</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>meritframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Merits</static>
+      </StringControl>
+      <windowlist name="merits">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>meritframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>meritframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>meritframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>meritframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.merits</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>merits</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>merits</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+      <!-- Flaws -->
+      <genericcontrol name="flawframe">
+        <bounds>252,8,240,160</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>flawframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Flaws</static>
+      </StringControl>
+      <StringField name="flaws">
+        <anchored>
+          <top>
+            <parent>flawframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>flawframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>flawframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>flawframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- Armor -->
+      <genericcontrol name="armorframe">
+        <bounds>252,168,240,80</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>armorframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Armor</static>
+      </StringControl>
+      <StringField name="armor">
+        <anchored>
+          <top>
+            <parent>armorframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>armorframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>armorframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>armorframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- Equipment and weapons -->
+      <genericcontrol name="kitframe">
+        <bounds>12,248,480,350</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>kitframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Weapons</static>
+      </StringControl>
+      <stringcontrol>
+        <anchored>
+          <to>kitframe</to>
+          <position>insidetopright</position>
+          <offset>48,5</offset>
+          <size>
+            <width>100</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,3,0,0</offset>
+        </frame>
+        <static>Range</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>kitframe</to>
+          <position>insidetopright</position>
+          <offset>118,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Short</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>kitframe</to>
+          <position>insidetopright</position>
+          <offset>83,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Med.</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>kitframe</to>
+          <position>insidetopright</position>
+          <offset>48,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Long</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>kitframe</to>
+          <position>insidetopright</position>
+          <offset>13,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Dmg.</static>
+      </stringcontrol>
+      <windowlist name="weapons">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>kitframe</parent>
+            <anchor>top</anchor>
+            <offset>26</offset>
+          </top>
+          <left>
+            <parent>kitframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>kitframe</parent>
+            <anchor>right</anchor>
+            <offset>-13</offset>
+          </right>
+          <size>
+            <height>100</height>
+          </size>
+        </anchored>
+        <class>charsheet_weaponitem</class>
+        <datasource>.weapons</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>weapons</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>weapons</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+      <StringControl>
+        <anchored>
+          <to>weapons</to>
+          <position>belowleft</position>
+          <offset>-1,2</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Equipment</static>
+      </StringControl>
+      <stringcontrol>
+        <anchored>
+          <to>weapons</to>
+          <position>belowright</position>
+          <offset>0,4</offset>
+          <size>
+            <width>50</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Dice Mod.</static>
+      </stringcontrol>
+      <windowlist name="equipment">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>weapons</parent>
+            <anchor>bottom</anchor>
+            <offset>15</offset>
+          </top>
+          <bottom>
+            <parent>kitframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-9</offset>
+          </bottom>
+          <left>
+            <parent>kitframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>kitframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.equipment</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>equipment</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>equipment</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+    </sheetdata>
+  </windowclass>
+</root>

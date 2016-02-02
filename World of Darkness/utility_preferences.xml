@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+
+  <!-- Custom preference controls -->
+  <template name="ShowNPCPref">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <right>
+          <anchor>right</anchor>
+          <offset>-4</offset>
+        </right>
+        <size>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <static/>
+      <script>
+        local valueChanged = nil;
+        local disableValueChanged = false;
+        
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          if getValue()=="" then
+            disableValueChanged = true;
+            setValue(Preferences.CombatTracker.Toggle);
+            disableValueChanged = false;
+          end
+        end
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if valueChanged and not disableValueChanged then
+            valueChanged(self);
+          end
+        end
+        
+        function onClickDown()
+          local oldvalue = getValue();
+          if oldvalue==Preferences.Yes then
+            setValue(Preferences.No);
+          elseif oldvalue==Preferences.No then
+            setValue(Preferences.CombatTracker.Toggle);
+          else
+            setValue(Preferences.Yes);
+          end
+          return;
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <template name="ScrollKeyPref">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <right>
+          <anchor>right</anchor>
+          <offset>-4</offset>
+        </right>
+        <size>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <static/>
+      <script>
+        local valueChanged = nil;
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if valueChanged then
+            valueChanged(self);
+          end
+        end
+        
+        function onClickDown()
+          local oldvalue = getValue();
+          if oldvalue==Preferences.MouseScrollerKey.None then
+            setValue(Preferences.MouseScrollerKey.Ctrl);
+          elseif oldvalue==Preferences.MouseScrollerKey.Ctrl then
+            setValue(Preferences.MouseScrollerKey.Alt);
+          elseif oldvalue==Preferences.MouseScrollerKey.Alt then
+            setValue(Preferences.MouseScrollerKey.Shift);
+          else
+            setValue(Preferences.MouseScrollerKey.None);
+          end
+          return;
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <template name="YesNoPref">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <right>
+          <anchor>right</anchor>
+          <offset>-4</offset>
+        </right>
+        <size>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <static/>
+      <script>
+        local valueChanged = nil;
+        local disableValueChanged = false;
+        
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          if getValue()=="" then
+            disableValueChanged = true;
+            setValue(Preferences.No);
+            disableValueChanged = false;
+          end
+        end
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if valueChanged and not disableValueChanged then
+            valueChanged(self);
+          end
+        end
+        
+        function onClickDown()
+          local oldvalue = getValue();
+          if oldvalue==Preferences.Yes then
+            setValue(Preferences.No);
+          else
+            setValue(Preferences.Yes);
+          end
+          return;
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <template name="P2PWhisperPref">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <right>
+          <anchor>right</anchor>
+          <offset>-4</offset>
+        </right>
+        <size>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <static/>
+      <script>
+        local valueChanged = nil;
+        local disableValueChanged = false;
+        
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          if getValue()=="" then
+            disableValueChanged = true;
+            setValue(Preferences.P2PWhisper.Echo);
+            disableValueChanged = false;
+          end
+        end
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if valueChanged and not disableValueChanged then
+            valueChanged(self);
+          end
+        end
+        
+        function onClickDown()
+          local oldvalue = getValue();
+          if oldvalue==Preferences.Yes then
+            setValue(Preferences.No);
+          elseif oldvalue==Preferences.No then
+            setValue(Preferences.P2PWhisper.Echo);
+          else
+            setValue(Preferences.Yes);
+          end
+          return;
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <template name="AutoNumberPref">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <right>
+          <anchor>right</anchor>
+          <offset>-4</offset>
+        </right>
+        <size>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <static/>
+      <script>
+        local valueChanged = nil;
+        local disableValueChanged = false;
+        
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          if getValue()=="" then
+            disableValueChanged = true;
+            setValue(Preferences.Yes);
+            disableValueChanged = false;
+          end
+        end
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if valueChanged and not disableValueChanged then
+            valueChanged(self);
+          end
+        end
+        
+        function onClickDown()
+          local oldvalue = getValue();
+          if oldvalue==Preferences.Yes then
+            setValue(Preferences.No);
+          elseif oldvalue==Preferences.No then
+            setValue(Preferences.AutoNumber.Random);
+          else
+            setValue(Preferences.Yes);
+          end
+          return;
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <!-- Default preference control classes -->
+  <template name="pref_string">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <right>
+          <anchor>right</anchor>
+          <offset>-4</offset>
+        </right>
+        <size>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <frame>
+        <name>modifier</name>
+        <offset>7,4,7,5</offset>
+      </frame>
+      <selectioncolor>90ffffff</selectioncolor>
+      <script>
+        local valueChanged = nil;
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if valueChanged then
+            valueChanged(self);
+          end
+        end
+      </script>
+    </stringcontrol>
+  </template>
+
+  <template name="pref_number">
+    <NumberControl>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>relative</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+          <offset>155</offset>
+        </left>
+        <size>
+          <width>40</width>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <frame>
+        <name>modifier</name>
+        <offset>7,4,7,5</offset>
+      </frame>
+      <script>
+        local valueChanged = nil;
+        
+        function registerValueChanged(func)
+          if type(func)=="function" then
+            valueChanged = func;
+          end
+        end
+        
+        function onValueChanged()
+          if super and super.onValueChanged then
+            super.onValueChanged();
+          end
+          if valueChanged then
+            valueChanged(self);
+          end
+        end
+      </script>
+    </NumberControl>
+  </template>
+
+  <!-- Preference label class -->
+  <template name="pref_label">
+    <stringcontrol>
+      <anchored>
+        <top>
+          <anchor>top</anchor>
+          <relation>current</relation>
+        </top>
+        <left>
+          <anchor>left</anchor>
+        </left>
+        <size>
+          <width>150</width>
+          <height>16</height>
+        </size>
+      </anchored>
+      <font>sheetlabel</font>
+      <static/>
+    </stringcontrol>
+  </template>
+
+  <!-- Preference subwindow contents -->
+  <windowclass name="prefpane">
+    <script>
+      local controls = {};
+      
+      function populate(groupname)
+        local preflist = nil;
+        local height = 0;
+        if groupname=="" then
+          return 0;
+        end
+        if not PreferenceManager or not PreferenceManager.getList then
+          return 0;
+        end
+        preflist = PreferenceManager.getList();
+        if not preflist then
+          return 0;
+        end
+        --[[ got here, now we can build this page ]]
+        for k,pref in pairs(preflist) do
+          if pref.group and pref.group==groupname then
+            if User.isHost() or not pref.gmonly then
+              height = height + addPref(pref);
+            end
+          end
+        end
+        return height;
+      end
+      
+      function addPref(pref)
+        local control = nil;
+        local label = nil;
+        local controltype = nil;
+        local height, width;
+        if not pref.control then
+          controltype = "pref_" .. pref.datatype;
+        elseif type(pref.control)=="string" then
+          controltype = pref.control;
+        end
+        if controltype then
+          control = createControl(controltype, pref.name);
+        elseif type(pref.control)=="function" then
+          --[[ invoke the function to create the control ]]
+          control = pref.control(self,pref.name);
+        else
+          return 0;
+        end
+        if control.registerValueChanged then
+          control.setValue(PreferenceManager.load(pref.name));
+          control.registerValueChanged(prefValueChanged);
+        else
+          control.setVisible(false);
+          return 0;
+        end
+        if pref.helptext then control.setTooltipText(pref.helptext) end;
+        --[[ anchor the preference ]]
+        width,height = control.getSize();
+        height = height + 5;
+        control.setAnchor("top", "topanchor", "bottom", "relative", 2);
+        --[[ create the label for the preference ]]
+        label = createControl("pref_label","");
+        label.setAnchor("top", pref.name, "top", "", 0);
+        label.setValue(pref.label);
+        if pref.helptext then label.setTooltipText(pref.helptext) end;
+        --[[ done ]]
+        table.insert(controls,{label=label, control=control});
+        return height;
+      end
+      
+      function clear()
+        for i,pref in ipairs(controls) do
+          if pref.label then pref.label.destroy() end;
+          if pref.control then pref.control.destroy() end;
+        end
+      end
+      
+      function prefValueChanged(control)
+        local name = control.getName();
+        PreferenceManager.save(name, control.getValue());
+      end
+    </script>
+    <sheetdata>
+      <genericcontrol name="topanchor">
+        <bounds>0,0,1,1</bounds>
+      </genericcontrol>
+      <!-- Blank page for preferences within a group -->    
+    </sheetdata>
+  </windowclass>
+
+  <!-- Main preferences window -->
+  <windowclass name="preflist">
+    <frame>charsheet</frame>
+    <placement>
+      <size>
+        <width>275</width>
+        <height>350</height>
+      </size>
+    </placement>
+    <sizelimits>
+      <dynamic />
+      <minimum>
+        <width>200</width>
+        <height>290</height>
+      </minimum>
+    </sizelimits>
+    <nodelete />
+    <script>
+      local grouplist = {};
+      
+      function onInit()
+        if not PreferenceManager then
+          return;
+        end
+        grouplist = PreferenceManager.getGroupList();
+        for k,pref in pairs(PreferenceManager.getList()) do
+          if User.isHost() or not pref.gmonly then
+            local groupname = pref.group;
+            local group = getGroup(groupname);
+            if group and not group.inuse then
+              group.inuse = true;
+            end
+          end
+        end
+        for i,group in ipairs(grouplist) do
+          if group.inuse then
+            tabs.addGroupTab(group.name,group.tabname);
+          end
+        end
+        tabs.activateTab(1);
+      end
+      
+      function getGroup(name)
+        for i,group in ipairs(grouplist) do
+          if group.name==name then
+            return group;
+          end
+        end
+        return nil;
+      end
+    </script>
+    <sheetdata>
+      <CloseBox>
+        <position>-6,2</position>
+      </CloseBox>
+      <!-- TITLE -->
+      <genericcontrol name="titleframe">
+        <bounds>10,20,-11,35</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <windowopencontrol>
+        <anchored>
+          <to>titleframe</to>
+          <position>insidetopleft</position>
+          <offset>13,8</offset>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>
+          <normal>button_openwindow</normal>
+          <pressed>button_emptytarget</pressed>
+        </icon>
+        <class>preflist</class>
+        <closetoggle/>
+        <description>
+          <field>title</field>
+        </description>
+        <nodrag/>
+      </windowopencontrol>
+      <stringcontrol name="title">
+        <anchored>
+          <top>
+            <parent>titleframe</parent>
+            <anchor>top</anchor>
+            <offset>9</offset>
+          </top>
+          <left>
+            <parent>titleframe</parent>
+            <anchor>left</anchor>
+            <offset>35</offset>
+          </left>
+          <right>
+            <parent>titleframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <static>Preferences</static>
+        <font>sheettext</font>
+      </stringcontrol>
+
+      <!-- Frame -->
+      <genericcontrol name="contentframe">
+        <bounds>10,54,-25,-13</bounds>
+        <frame>
+          <name>sheetgroup</name>
+          <offset>0,1,0,0</offset>
+        </frame>
+      </genericcontrol>
+      <!-- tab control -->
+      <tabcontrol name="tabs">
+        <anchored>
+          <top>
+            <anchor>top</anchor>
+            <offset>50</offset>
+          </top>
+          <left>
+            <anchor>right</anchor>
+            <offset>-22</offset>
+          </left>
+          <size>
+            <width>18</width>
+            <height>0</height>
+          </size>
+        </anchored>
+        <script>
+          local tablist = {};
+          
+          function addGroupTab(groupname,tabname)
+            table.insert(tablist,groupname);
+            addTab(nil,tabname,nil);
+          end
+          
+          function onActivate(index)
+            window.prefs.setGroup(tablist[index]);
+          end
+        </script>
+      </tabcontrol>
+      <!-- preference group name -->
+      <stringcontrol name="groupname">
+        <bounds>22,64,-35,15</bounds>
+        <font>sheetlabel</font>
+        <static />
+        <nodrag/>
+      </stringcontrol>
+      <!-- Subwindow -->
+      <subwindow name="prefs">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+            <offset>27</offset>
+          </left>
+          <top>
+            <parent>groupname</parent>
+            <anchor>bottom</anchor>
+            <offset>2</offset>
+          </top>
+          <right>
+            <anchor>right</anchor>
+            <offset>-35</offset>
+          </right>
+          <bottom>
+            <anchor>bottom</anchor>
+            <offset>-23</offset>
+          </bottom>
+        </anchored>
+        <class>prefpane</class>
+        <script>
+          local pending = nil;
+          local initialised = false;
+          
+          function onInstanceCreated()
+            initialised = true;
+            if pending then
+              window.groupname.setValue(pending);
+              subwindow.populate(pending);
+              pending = nil;
+            end
+          end
+          
+          function setGroup(name)
+            if initialised then
+              window.groupname.setValue(name);
+              subwindow.clear();
+              subwindow.populate(name);
+            else
+              pending = name;
+            end
+          end
+        </script>
+        <activate/>
+      </subwindow>
+
+      <scrollercontrol>
+        <anchored>
+          <to>prefs</to>
+          <position>insidebottomright</position>
+        </anchored>
+        <target>prefs</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+    </sheetdata>
+  </windowclass>
+</root>

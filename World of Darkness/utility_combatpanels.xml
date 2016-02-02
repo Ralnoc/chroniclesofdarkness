@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+
+  <!-- windowclass name="combatpanel_active">
+    <sizelimits>
+      <minimum>
+        <height>17</height>
+      </minimum>
+    </sizelimits>
+    <script>
+      local forcedisplay = false;
+      local displayflag = false;
+      
+      function isDisplayed()
+        return (forcedisplay or displayflag);
+      end
+      
+      function toggleForceDisplay()
+        forcedisplay = not forcedisplay;
+        refilter();
+      end
+      
+      function setDisplay(flag)
+        displayflag = flag;
+        refilter();
+      end
+      
+      function onInit()
+        populate(nil,"");
+      end
+      
+      function populate(source)
+        --[[ fill in panel info from pc or npc source ]]
+      end
+      
+      function refilter()
+        if windowlist then
+          windowlist.applyFilter();
+        end
+      end
+    </script>
+    <sheetdata>
+      <genericcontrol name="activeicon">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+            <offset>38</offset>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>indicator_sword</icon>
+      </genericcontrol>
+      <stringcontrol name="attacklabel">
+        <anchored>
+          <left>
+            <parent>activeicon</parent>
+            <anchor>right</anchor>
+            <offset>4</offset>
+          </left>
+          <top>
+            <anchor>top</anchor>
+            <offset>4</offset>
+          </top>
+        </anchored>
+        <font>sheetlabelsmall</font>
+        <static>Attack</static>
+      </stringcontrol>
+      <StringField name="attack">
+        <anchored>
+          <left>
+            <parent>attacklabel</parent>
+            <anchor>right</anchor>
+            <offset>4</offset>
+          </left>
+          <right>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+        </anchored>
+        <font>sheettextsmall</font>
+        <multilinespacing>14</multilinespacing>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-1,0,0</offset>
+        </frame>
+      </StringField>
+    </sheetdata>
+  </windowclass -->
+  
+  <windowclass name="combatpanel_defensive">
+    <sizelimits>
+      <minimum>
+        <height>17</height>
+      </minimum>
+    </sizelimits>
+    <script>
+      local forcedisplay = false;
+      local displayflag = false;
+      
+      function isDisplayed()
+        return (forcedisplay or displayflag);
+      end
+      
+      function toggleForceDisplay()
+        forcedisplay = not forcedisplay;
+        refilter();
+      end
+      
+      function setDisplay(flag)
+        displayflag = flag;
+        refilter();
+      end
+      
+      function onInit()
+        populate(nil,"");
+      end
+      
+      function populate(source,type)
+        --[[ fill in panel info from pc or npc source ]]
+        if source and type=="npc" then
+          speed.setValue(source.createChild("speed","number").getValue());
+          armor.setValue(source.createChild("armor","string").getValue());
+          defense.setValue(source.createChild("defense","number").getValue());
+        end
+      end
+      
+      function setLinks(source,type)
+        if source and type=="pc" then
+          speed.setLink(source.createChild("speed","number"),false);
+          armor.setLink(source.createChild("armor","string"),false);
+          defense.setLink(source.createChild("defense","number"),false);
+        end
+      end
+      
+      function refilter()
+        if windowlist then
+          windowlist.applyFilter();
+        end
+      end
+    </script>
+    <sheetdata>
+      <genericcontrol name="defensiveicon">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+            <offset>38</offset>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>indicator_shield</icon>
+      </genericcontrol>
+      <genericcontrol name="targeting">
+        <anchored>
+          <right>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>100</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <iconspacing>21</iconspacing>
+        <script file="scripts/combattracker_targeting.lua" />
+      </genericcontrol>
+      <NumberField name="speed">
+        <anchored>
+          <right>
+            <parent>targeting</parent>
+            <anchor>left</anchor>
+            <offset>-5</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>40</width>
+            <height>17</height>
+          </size>
+        </anchored>
+        <font>sheettextsmall</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-1,0,0</offset>
+        </frame>
+        <script>
+          local linknode = nil;
+          local ripple = true;
+
+          function setLink(dbnode,readonly)
+            if dbnode then
+              linknode = dbnode;
+              linknode.onUpdate = onLinkUpdated;
+              onLinkUpdated(linknode);
+              addBitmapWidget("indicator_linked").setPosition("bottomright", -5, -7);
+              if readonly then
+                setReadOnly(true);
+              else
+                setReadOnly(false);
+              end
+            end
+          end
+
+          function onLinkUpdated(source)
+            if super and super.onLinkUpdated then
+              super.onLinkUpdated(source);
+            end
+            if ripple then
+              ripple = false;
+              setValue(source.getValue());
+              ripple = true;
+            end
+          end
+
+          function onValueChanged()
+            if super and super.onValueChanged then
+              super.onValueChanged();
+            end
+            if linknode then
+              if ripple then
+                ripple = false;
+                linknode.setValue(getValue());
+                ripple = true;
+              end
+            end
+          end
+          
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            onValueChanged();
+          end
+        </script>
+      </NumberField>
+      <stringcontrol name="speedlabel">
+        <anchored>
+          <right>
+            <parent>speed</parent>
+            <anchor>left</anchor>
+            <offset>-5</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>4</offset>
+          </top>
+        </anchored>
+        <font>sheetlabelsmall</font>
+        <static>Speed</static>
+      </stringcontrol>
+      <NumberField name="defense">
+        <anchored>
+          <right>
+            <parent>speedlabel</parent>
+            <anchor>left</anchor>
+            <offset>-5</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>40</width>
+            <height>17</height>
+          </size>
+        </anchored>
+        <font>sheettextsmall</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-1,0,0</offset>
+        </frame>
+        <script>
+          local linknode = nil;
+          local ripple = true;
+
+          function setLink(dbnode,readonly)
+            if dbnode then
+              linknode = dbnode;
+              linknode.onUpdate = onLinkUpdated;
+              onLinkUpdated(linknode);
+              addBitmapWidget("indicator_linked").setPosition("bottomright", -5, -7);
+              if readonly then
+                setReadOnly(true);
+              else
+                setReadOnly(false);
+              end
+            end
+          end
+
+          function onLinkUpdated(source)
+            if super and super.onLinkUpdated then
+              super.onLinkUpdated(source);
+            end
+            if ripple then
+              ripple = false;
+              setValue(source.getValue());
+              ripple = true;
+            end
+          end
+
+          function onValueChanged()
+            if super and super.onValueChanged then
+              super.onValueChanged();
+            end
+            if linknode then
+              if ripple then
+                ripple = false;
+                linknode.setValue(getValue());
+                ripple = true;
+              end
+            end
+          end
+          
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            onValueChanged();
+          end
+        </script>
+      </NumberField>
+      <stringcontrol name="deflabel">
+        <anchored>
+          <right>
+            <parent>defense</parent>
+            <anchor>left</anchor>
+            <offset>-5</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>4</offset>
+          </top>
+        </anchored>
+        <font>sheetlabelsmall</font>
+        <static>Defense</static>
+      </stringcontrol>
+      <stringcontrol name="armorlabel">
+        <anchored>
+          <left>
+            <parent>defensiveicon</parent>
+            <anchor>right</anchor>
+            <offset>4</offset>
+          </left>
+          <top>
+            <anchor>top</anchor>
+            <offset>4</offset>
+          </top>
+        </anchored>
+        <font>sheetlabelsmall</font>
+        <static>Armor</static>
+      </stringcontrol>
+      <StringField name="armor">
+        <anchored>
+          <left>
+            <parent>armorlabel</parent>
+            <anchor>right</anchor>
+            <offset>4</offset>
+          </left>
+          <right>
+            <parent>deflabel</parent>
+            <anchor>left</anchor>
+            <offset>-10</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+        </anchored>
+        <font>sheettextsmall</font>
+        <multilinespacing>14</multilinespacing>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-1,0,0</offset>
+        </frame>
+        <script>
+          local linknode = nil;
+          local ripple = true;
+
+          function setLink(dbnode,readonly)
+            if dbnode then
+              linknode = dbnode;
+              linknode.onUpdate = onLinkUpdated;
+              onLinkUpdated(linknode);
+              addBitmapWidget("indicator_linked").setPosition("bottomright", -5, -7);
+              if readonly then
+                setReadOnly(true);
+                setFrame("");
+              else
+                setReadOnly(false);
+              end
+            end
+          end
+
+          function onLinkUpdated(source)
+            if super and super.onLinkUpdated then
+              super.onLinkUpdated(source);
+            end
+            if ripple then
+              ripple = false;
+              setValue(source.getValue());
+              ripple = true;
+            end
+          end
+
+          function onValueChanged()
+            if super and super.onValueChanged then
+              super.onValueChanged();
+            end
+            if linknode then
+              if ripple then
+                ripple = false;
+                linknode.setValue(getValue());
+                ripple = true;
+              end
+            end
+          end
+          
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            onValueChanged();
+          end
+        </script>
+      </StringField>
+    </sheetdata>
+  </windowclass>
+  
+  <windowclass name="combatpanel_effects">
+    <sizelimits>
+      <minimum>
+        <height>17</height>
+      </minimum>
+    </sizelimits>
+    <script>
+      local forcedisplay = false;
+      local displayflag = false;
+      
+      function progressEffects(...)
+        return effects.progressEffects(...);
+      end
+      
+      function isDisplayed()
+        return (forcedisplay or displayflag);
+      end
+      
+      function toggleForceDisplay()
+        forcedisplay = not forcedisplay;
+        refilter();
+      end
+      
+      function setDisplay(flag)
+        displayflag = flag;
+        refilter();
+      end
+      
+      function onInit()
+        populate(nil);
+      end
+      
+      function populate(source)
+        --[[ fill in panel info from pc or npc source ]]
+      end
+      
+      function refilter()
+        if windowlist then
+          windowlist.applyFilter();
+        end
+      end
+    </script>
+    <sheetdata>
+      <genericcontrol name="effecticon">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+            <offset>38</offset>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>indicator_effect</icon>
+      </genericcontrol>
+      <windowlist name="effects">
+        <datasource>.effects</datasource>
+        <anchored>
+          <left>
+            <parent>effecticon</parent>
+            <anchor>right</anchor>
+            <offset>4</offset>
+          </left>
+          <right>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+        </anchored>
+        <class>combattracker_effect</class>
+        <columns>
+          <width>144</width>
+          <fillwidth />
+        </columns>
+        <allowcreate/>
+        <allowdelete/>
+        <script file="scripts/combattracker_effects.lua" />
+      </windowlist>
+    </sheetdata>
+  </windowclass>
+  
+  <windowclass name="combatpanel_notes">
+    <sizelimits>
+      <minimum>
+        <height>17</height>
+      </minimum>
+    </sizelimits>
+    <script>
+      local forcedisplay = false;
+      local displayflag = false;
+      
+      function isDisplayed()
+        return (forcedisplay or displayflag);
+      end
+      
+      function toggleForceDisplay()
+        forcedisplay = not forcedisplay;
+        refilter();
+      end
+      
+      function setDisplay(flag)
+        displayflag = flag;
+        refilter();
+      end
+      
+      function onInit()
+      end
+      
+      function populate(source,type)
+        --[[ fill in panel info from pc or npc source ]]
+      end
+      
+      function setLinks(source,type)
+        if source and type=="pc" then
+          gmnotes.setLink(source.createChild("gmnotes","string"),false);
+        end
+      end
+      
+      function refilter()
+        if windowlist then
+          windowlist.applyFilter();
+        end
+      end
+    </script>
+    <sheetdata>
+      <genericcontrol name="notesicon">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+            <offset>38</offset>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>20</width>
+            <height>20</height>
+          </size>
+        </anchored>
+        <icon>indicator_casterprep</icon>
+      </genericcontrol>
+      <StringField name="gmnotes">
+        <anchored>
+          <left>
+            <parent>notesicon</parent>
+            <anchor>right</anchor>
+            <offset>4</offset>
+          </left>
+          <right>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <top>
+            <anchor>top</anchor>
+          </top>
+        </anchored>
+        <font>sheettextsmall</font>
+        <multilinespacing>14</multilinespacing>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-1,0,0</offset>
+        </frame>
+        <script>
+          local linknode = nil;
+          local ripple = true;
+
+          function setLink(dbnode,readonly)
+            if dbnode then
+              linknode = dbnode;
+              linknode.onUpdate = onLinkUpdated;
+              onLinkUpdated(linknode);
+              addBitmapWidget("indicator_linked").setPosition("bottomright", -5, -7);
+              if readonly then
+                setReadOnly(true);
+                setFrame("");
+              else
+                setReadOnly(false);
+              end
+            end
+          end
+
+          function onLinkUpdated(source)
+            if super and super.onLinkUpdated then
+              super.onLinkUpdated(source);
+            end
+            if ripple then
+              ripple = false;
+              setValue(source.getValue());
+              ripple = true;
+            end
+          end
+
+          function onValueChanged()
+            if super and super.onValueChanged then
+              super.onValueChanged();
+            end
+            if linknode then
+              if ripple then
+                ripple = false;
+                linknode.setValue(getValue());
+                ripple = true;
+              end
+            end
+          end
+          
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            onValueChanged();
+          end
+        </script>
+      </StringField>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="combattracker_effect">
+    <sizelimits>
+      <minimum>
+        <height>22</height>
+      </minimum>
+    </sizelimits>
+    <script>
+      function onDrag(button, x, y, draginfo)
+        if adjustment.getValue()~=0 and (not draginfo.isType("effect")) then
+          draginfo.setType("effect");
+          draginfo.setDescription(label.getValue());
+          draginfo.setSlot(1);
+          draginfo.setNumberData(duration.getValue());
+          draginfo.setSlot(2);
+          draginfo.setNumberData(adjustment.getValue());
+          return true;
+        end
+      end
+    </script>
+    <sheetdata>
+      <StringField name="label">
+        <bounds>0,4,75,17</bounds>
+        <font>sheettextsmall</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,1,0,0</offset>
+        </frame>
+        <tabtarget>
+          <next>duration</next>
+          <prev>adjustment</prev>
+        </tabtarget>
+        <script>
+          local effects = nil;
+          local panels  = nil;
+          local entries = nil;
+          
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+
+          function onInit()
+            if super and super.onInit then
+              super.onInit();
+            end
+            effects = window.windowlist;
+            panels  = effects.window.windowlist;
+            entries = panels.window.windowlist;
+          end
+
+          function onDeleteUp()
+            if super and super.onDeleteUp then
+              super.onDeleteUp();
+            end
+            if #(effects.getWindows()) &gt; 1 then
+              window.close();
+            end
+          end
+          
+          function onDeleteDown()
+            if super and super.onDeleteDown then
+              super.onDeleteDown();
+            end
+            if #(effects.getWindows()) &gt; 1 then
+              window.close();
+            end
+          end
+
+          function onGainFocus()
+            if super and super.onGainFocus then
+              super.onGainFocus();
+            end
+            if getValue() == "" then
+              wasempty = true;
+            else
+              wasempty = false;
+            end
+          end
+          
+          function onValueChanged()
+            if super and super.onValueChanged then
+              super.onValueChanged();
+            end
+            effects.checkForEmpty();
+            if wasempty then
+              casterentry = entries.getActiveEntry();
+              if casterentry then
+                window.caster.setSource(casterentry);
+              end
+              wasempty = false;
+            end
+          end
+        </script>
+      </StringField>
+      
+      <NumberField name="duration">
+        <anchored>
+          <left>
+            <parent>label</parent>
+            <anchor>right</anchor>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>30</width>
+            <height>22</height>
+          </size>
+        </anchored>
+        <font>sheetnumbersmall</font>
+        <frame>
+          <name>bonus</name>
+          <offset>2,2,2,1</offset>
+        </frame>
+        <keyeditframe>
+          <name>sheetfocus</name>
+          <offset>2,2,2,2</offset>
+        </keyeditframe>
+        <tabtarget>
+          <next>adjustment</next>
+          <prev>label</prev>
+        </tabtarget>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+        </script>
+      </NumberField>
+      <NumberField name="adjustment">
+        <anchored>
+          <left>
+            <parent>duration</parent>
+            <anchor>right</anchor>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <size>
+            <width>30</width>
+            <height>22</height>
+          </size>
+        </anchored>
+        <font>sheetnumbersmall</font>
+        <hideonvalue>0</hideonvalue>
+        <displaysign />
+        <frame>
+          <name>durationadjustment</name>
+          <offset>2,2,2,2</offset>
+        </frame>
+        <keyeditframe>
+          <name>sheetfocus</name>
+          <offset>2,2,2,2</offset>
+        </keyeditframe>
+        <droptypes>
+          <type>combattrackerentry</type>
+        </droptypes>
+        <stateframe>
+          <drophilight>
+            <name>sheetfocus</name>
+            <offset>2,2,2,2</offset>
+          </drophilight>
+        </stateframe>
+        <tabtarget>
+          <next>label</next>
+          <prev>duration</prev>
+        </tabtarget>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+
+          function onValueChanged()
+            if super and super.onValueChanged then
+              super.onValueChanged();
+            end
+            window.caster.updateVisibility();
+          end
+          
+          function onDrop(x, y, draginfo)
+            if super and super.onDrop then
+              super.onDrop(x, y, draginfo);
+            end
+            if draginfo.isType("combattrackerentry") then
+              window.caster.setSource(draginfo.getCustomData());
+              return true;
+            end
+          end
+        </script>
+      </NumberField>
+
+      <StringField name="caster">
+        <anchored>
+          <right>
+            <parent>adjustment</parent>
+            <anchor>right</anchor>
+            <offset>-5</offset>
+          </right>
+          <top>
+            <parent>duration</parent>
+            <anchor>bottom</anchor>
+          </top>
+          <size>
+            <height>12</height>
+          </size>
+        </anchored>
+        <center />
+        <static />
+        <font>sheetlabelsmall</font>
+        <color>#7f000000</color>
+        <empty>&#171; unnamed &#187;</empty>
+        <invisible />
+        <script>
+          function updateVisibility()
+            if sourceentry and window.adjustment.getValue() ~= 0 then
+              setVisible(true);
+            else
+              setVisible(false);
+            end
+          end
+        
+          function getSource()
+            return sourceentry;
+          end
+        
+          function setSource(entry)
+            if sourceentry then
+              sourceentry.removeObserver(self);
+            end
+          
+            sourceentry = entry;
+            
+            if sourceentry then
+              sourceentry.addObserver(self);
+              setValue("Update on: " .. sourceentry.name.getValue());
+              updateVisibility();
+            else
+              updateVisibility();
+            end
+          end
+          
+          function observedNameChanged(source)
+            setValue("Update on: " .. sourceentry.name.getValue());
+          end
+          
+          function observedClosed(source)
+            if source == sourceentry then
+              sourceentry = nil;
+              setValue(nil);
+              updateVisibility();
+            end
+          end
+          
+          function onClickDown(button, x, y)
+            if super and super.onClickDown then
+              super.onClickDown(button, x, y);
+            end
+            if button == 2 then
+              setSource(nil);
+            end
+          end
+          
+          function onDrop(x, y, draginfo)
+            if super and super.onDrop then
+              super.onDrop(x, y, draginfo);
+            end
+            if draginfo.isType("combattrackerentry") then
+              setSource(draginfo.getCustomData());
+              return true;
+            end
+          end
+        </script>
+      </StringField>
+    </sheetdata>
+  </windowclass>
+
+  <template name="panelbutton">
+    <genericcontrol>
+      <anchored>
+        <left>
+          <anchor>left</anchor>
+        </left>
+        <top>
+          <anchor>top</anchor>
+          <offset>8</offset>
+        </top>
+        <size>
+          <width>20</width>
+          <height>20</height>
+        </size>
+      </anchored>
+      <icon>
+        <normal>indicator_ctffempty</normal>
+        <pressed>indicator_ctffempty</pressed>
+      </icon>
+      <script>
+        local target = nil;
+        
+        function setTarget(win)
+          target = win;
+        end
+        
+        function onClickDown(...)
+          return true;
+        end
+        
+        function onClickRelease(...)
+          if target and target.toggleForceDisplay then
+            target.toggleForceDisplay();
+            refresh();
+          end
+        end
+
+        function onHover(oncontrol)
+          if target and target.setDisplay then
+            target.setDisplay(oncontrol);
+            refresh();
+          end
+        end
+        
+        function onInit()
+          if super and super.onInit then
+            super.onInit();
+          end
+          refresh();
+        end
+        
+        function refresh()
+          setColor("7fffffff");
+          if target and target.isDisplayed and target.isDisplayed() then
+            setColor("ffffffff");
+          end
+        end
+      </script>
+    </genericcontrol>
+  </template>
+
+</root>

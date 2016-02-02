@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="charsheet">
+    <placement>
+      <size>
+        <width>525</width>
+        <height>611</height>
+      </size>
+      <position>
+        <x>410</x>
+        <y>90</y>
+      </position>
+    </placement>
+    <minimize />
+    <nodelete />
+    <playercontrol />
+    <script>
+      local subwindows = {};
+      local tabcontrol = nil;
+      local linenode = nil;
+      
+      function onInit()
+        local linename;
+        linenode = getDatabaseNode().createChild("gameline","string");
+        linename = linenode.getValue();
+        if linename=="" then
+          linename = LineManager.getDefaultName();
+        end
+        linenode.onUpdate = refresh;
+        setLine(linename);
+      end
+      
+      function setLine(name)
+        local gameline = LineManager.getLine(name);
+        if not gameline then
+          return;
+        end
+        linenode.setValue(gameline.Name);
+      end
+      
+      function refresh()
+        local gameline = LineManager.getLine(linenode.getValue());
+        if not gameline then
+          return;
+        end
+        --[[ clear the current windows ]]
+        for i,ctl in ipairs(subwindows) do
+          ctl.destroy();
+        end
+        if tabcontrol then
+          tabcontrol.destroy();
+        end
+        --[[ create the new windows ]]
+        setFrame(gameline.CharSheet.Frame);
+        tabcontrol = createControl(gameline.CharSheet.TabControl,"tabs");
+        for i,tab in ipairs(gameline.CharSheet.Tabs) do
+          subwindows[i] = createControl(tab.Template,tab.Name);
+          tabcontrol.addTab(tab.Name,tab.Icon,nil);
+        end
+        tabcontrol.activateTab(gameline.CharSheet.Tabs.Activate);
+      end
+    </script>
+    <sheetdata>
+      <CloseBox>
+        <position>-6,4</position>
+      </CloseBox>
+    </sheetdata>
+  </windowclass>
+</root>

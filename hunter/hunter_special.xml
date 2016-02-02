@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="hunter_special">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <sheetdata>
+      <!-- Disciplines -->
+      <genericcontrol name="discframe">
+        <bounds>12,8,240,140</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>discframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Tactics</static>
+      </StringControl>
+      <windowlist name="tactics">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>discframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>discframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>discframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>discframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.tactics</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>tactics</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>tactics</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+      <!-- Special -->
+      <genericcontrol name="specframe">
+        <bounds>252,8,240,140</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="vitlabel">
+        <anchored>
+          <to>specframe</to>
+          <position>insidetop</position>
+          <offset>0,13</offset>
+        </anchored>
+        <center/>
+        <static>Hunter - The Vigil</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <!-- <DotControl name="vitae">
+        <anchored>
+          <top>
+            <parent>vitlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>specframe</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>100</width>
+            <height>35</height>
+          </size>
+        </anchored>
+        <dots>20</dots>
+        <rowcount>2</rowcount>
+        <spacing>
+          <vertical>15</vertical>
+        </spacing>
+        <title>Vitae</title>
+      </DotControl>
+      <StringControl name="bldlabel">
+        <anchored>
+          <to>specframe</to>
+          <position>insidetop</position>
+          <offset>0,69</offset>
+        </anchored>
+        <center/>
+        <static>Blood Potency</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotControl name="blood">
+        <anchored>
+          <top>
+            <parent>bldlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>7</offset>
+          </top>
+          <left>
+            <parent>specframe</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>100</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <dots>10</dots>
+        <title>Blood</title>
+      </DotControl> -->
+
+      <!-- More Notes -->
+      <genericcontrol name="historyframe">
+        <bounds>12,148,480,450</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>historyframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Character History</static>
+      </StringControl>
+      <StringField name="history">
+        <anchored>
+          <top>
+            <parent>historyframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>historyframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>historyframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>historyframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+    </sheetdata>
+  </windowclass>
+</root>

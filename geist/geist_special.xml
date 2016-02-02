@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="geist_special">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <sheetdata>
+     <!-- Arcana -->
+      <genericcontrol name="maniframe">
+        <bounds>12,8,240,240</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>maniframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Manifestations</static>
+      </StringControl>
+      <windowlist name="manifestations">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>maniframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>maniframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>maniframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>maniframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.manifestations</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>manifestations</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>manifestations</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+      <!-- Special -->
+      <genericcontrol name="gstpcframe">
+        <bounds>252,8,240,140</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="plaslabel">
+        <anchored>
+          <to>gstpcframe</to>
+          <position>insidetop</position>
+          <offset>0,13</offset>
+        </anchored>
+        <center/>
+        <static>Plasm</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotControl name="plasm">
+        <anchored>
+          <top>
+            <parent>plaslabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>gstpcframe</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>100</width>
+            <height>35</height>
+          </size>
+        </anchored>
+        <dots>20</dots>
+        <rowcount>2</rowcount>
+        <spacing>
+          <vertical>15</vertical>
+        </spacing>
+        <title>Plasm</title>
+      </DotControl>
+
+      <StringControl name="psylabel">
+        <anchored>
+          <to>gstpcframe</to>
+          <position>insidetop</position>
+          <offset>0,89</offset>
+        </anchored>
+        <center/>
+        <static>Psyche</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotControl name="psyche">
+        <anchored>
+          <top>
+            <parent>psylabel</parent>
+            <anchor>bottom</anchor>
+            <offset>7</offset>
+          </top>
+          <left>
+            <parent>gstpcframe</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>100</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <dots>10</dots>
+        <title>Psyche</title>
+      </DotControl>
+
+ <!-- Nimbus -->
+      <genericcontrol name="cereframe">
+        <bounds>252,148,240,100</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>cereframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Ceremonies</static>
+      </StringControl>
+      <StringField name="ceremonies">
+        <anchored>
+          <top>
+            <parent>cereframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>cereframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>cereframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>cereframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- More Notes -->
+      <genericcontrol name="gsthstryframe">
+        <bounds>12,248,480,350</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>gsthstryframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Character History</static>
+      </StringControl>
+      <StringField name="gsthstry">
+        <anchored>
+          <top>
+            <parent>gsthstryframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>gsthstryframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>gsthstryframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>gsthstryframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+    </sheetdata>
+  </windowclass>
+</root>

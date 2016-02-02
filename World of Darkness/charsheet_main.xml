@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="charsheet_main">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <script>
+      function onInit()
+        local linename = getDatabaseNode().createChild("gameline","string").getValue();
+        local gameline = LineManager.getLine(linename);
+        if gameline and gameline.onWindowInit then
+          gameline.onWindowInit(self);
+        end
+      end
+    </script>
+    <sheetdata>
+
+      <!-- LOGO AND PORTRAIT -->
+      <genericcontrol name="logo">
+        <bounds>422,21,65,65</bounds>
+        <icon>charlist_base</icon>
+        <script>
+          function onInit()
+            local linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+            local gameline;
+            if linename=="" then
+              linename = LineManager.getDefaultName();
+            end
+            gameline = LineManager.getLine(linename);
+            if gameline then
+              setIcon(gameline.CSLogo);
+            end
+          end
+        </script>
+      </genericcontrol>
+      <genericcontrol name="FullPortraitFrame">
+        <bounds>422,21,65,65</bounds>
+        <icon>invisible_icon</icon>
+        <script file="scripts\charsheet_portrait.lua" />
+      </genericcontrol>
+      <buttoncontrol>
+        <bounds>-36,18,23,22</bounds>
+        <icon>
+          <normal>button_identityactivate</normal>
+          <pressed>button_identityactivate_down</pressed>
+        </icon>
+        <script>
+          function onButtonPress()
+            GmIdentityManager.addIdentity(window.name.getValue());
+          end
+        </script>
+      </buttoncontrol>
+
+      <!-- OVERVIEW -->
+      <genericcontrol name="overviewframe">
+        <bounds>12,8,400,90</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <labeledstring name="name">
+        <anchored>
+          <to>overviewframe</to>
+          <position>insidetopleft</position>
+          <offset>15,10</offset>
+          <size>
+            <width>120</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>overviewframe</anchorto>
+        <height>20</height>
+        <label>name</label>
+        <tabtarget>
+          <next>concept</next>
+          <prev>experience</prev>
+        </tabtarget>
+      </labeledstring>
+      <labeledstring name="player">
+        <anchored>
+          <to>name</to>
+          <position>right</position>
+          <offset>5</offset>
+          <size>
+            <width>120</width>
+          </size>
+        </anchored>
+        <empty>None</empty>
+        <label>player</label>
+        <static/>
+        <script>
+          function onInit()
+            local owner;
+            if super and super.onInit then
+              super.onInit();
+            end
+            if User.isHost() then
+              owner = window.getDatabaseNode().getOwner();
+            else
+              owner = User.getUsername();
+            end
+            if not owner then
+              owner = "";
+            end
+            setValue(owner);
+          end
+        </script>
+      </labeledstring>
+      <labeledstring name="chronicle">
+        <anchored>
+          <to>player</to>
+          <position>right</position>
+          <offset>5</offset>
+          <size>
+            <width>120</width>
+          </size>
+        </anchored>
+        <empty>None</empty>
+        <label>chronicle</label>
+        <static/>
+        <script>
+          function onInit()
+            local campaign;
+            if super and super.onInit then
+              super.onInit();
+            end
+            campaign = User.getCampaignName();
+            if not campaign then
+              campaign = "";
+            end
+            setValue(campaign);
+          end
+        </script>
+      </labeledstring>
+      <labeledstring name="concept">
+        <anchored>
+          <to>overviewframe</to>
+          <position>insidetopleft</position>
+          <offset>15,31</offset>
+          <size>
+            <width>120</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>overviewframe</anchorto>
+        <height>20</height>
+        <label>concept</label>
+        <tabtarget>
+          <next>virtue</next>
+          <prev>name</prev>
+        </tabtarget>
+      </labeledstring>
+      <labeledstring name="virtue">
+        <anchored>
+          <to>concept</to>
+          <position>right</position>
+          <offset>5</offset>
+          <size>
+            <width>120</width>
+          </size>
+        </anchored>
+        <label>virtue</label>
+        <tabtarget>
+          <next>vice</next>
+          <prev>concept</prev>
+        </tabtarget>
+      </labeledstring>
+      <labeledstring name="vice">
+        <anchored>
+          <to>virtue</to>
+          <position>right</position>
+          <offset>5</offset>
+          <size>
+            <width>120</width>
+          </size>
+        </anchored>
+        <label>vice</label>
+        <tabtarget>
+          <next>age</next>
+          <prev>virtue</prev>
+        </tabtarget>
+      </labeledstring>
+      <labeledstring name="age">
+        <anchored>
+          <to>overviewframe</to>
+          <position>insidetopleft</position>
+          <offset>15,52</offset>
+          <size>
+            <width>120</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>overviewframe</anchorto>
+        <height>20</height>
+        <label>age</label>
+        <tabtarget>
+          <next>faction</next>
+          <prev>vice</prev>
+        </tabtarget>
+      </labeledstring>
+      <labeledstring name="faction">
+        <anchored>
+          <to>age</to>
+          <position>right</position>
+          <offset>5</offset>
+          <size>
+            <width>120</width>
+          </size>
+        </anchored>
+        <label>faction</label>
+        <script>
+          function onInit()
+            local linename, gameline;
+            if super and super.onInit then
+              super.onInit();
+            end
+            --[[ get the game line structure ]]
+            linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+            if linename=="" then
+              linename = LineManager.getDefaultName();
+            end
+            gameline = LineManager.getLine(linename);
+            if not gameline then
+              return;
+            end
+            setLabel(gameline.FactionTitle);
+          end
+        </script>
+        <tabtarget>
+          <next>group</next>
+          <prev>age</prev>
+        </tabtarget>
+      </labeledstring>
+      <labeledstring name="group">
+        <anchored>
+          <to>faction</to>
+          <position>right</position>
+          <offset>5</offset>
+          <size>
+            <width>120</width>
+          </size>
+        </anchored>
+        <label>group name</label>
+        <script>
+          function onInit()
+            local linename, gameline;
+            if super and super.onInit then
+              super.onInit();
+            end
+            --[[ get the game line structure ]]
+            linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+            if linename=="" then
+              linename = LineManager.getDefaultName();
+            end
+            gameline = LineManager.getLine(linename);
+            if not gameline then
+              return;
+            end
+            setLabel(gameline.GroupTitle);
+          end
+        </script>
+        <tabtarget>
+          <next>size</next>
+          <prev>faction</prev>
+        </tabtarget>
+      </labeledstring>
+
+      <!-- ATTRIBUTES: Mental -->
+      <genericcontrol name="attributes1">
+        <bounds>12,98,160,70</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="intlabel">
+        <anchored>
+          <to>attributes1</to>
+          <position>insidetopleft</position>
+          <offset>10,10</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Intelligence</static>
+        <script>
+          function onDrag(...)
+            return window.intelligence.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Intelligence", window.intelligence.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="intelligence">
+        <anchored>
+          <to>intlabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.intelligence</source>
+        <title>Intelligence</title>
+      </DotControl>
+      <StringControl name="witlabel">
+        <anchored>
+          <to>intlabel</to>
+          <position>belowleft</position>
+          <offset>0,3</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+        </frame>
+        <static>Wits</static>
+        <script>
+          function onDrag(...)
+            return window.wits.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Wits", window.wits.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="wits">
+        <anchored>
+          <to>witlabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.wits</source>
+        <title>Wits</title>
+      </DotControl>
+      <StringControl name="reslabel">
+        <anchored>
+          <to>witlabel</to>
+          <position>belowleft</position>
+          <offset>0,3</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+        </frame>
+        <static>Resolve</static>
+        <script>
+          function onDrag(...)
+            return window.resolve.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Resolve", window.resolve.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="resolve">
+        <anchored>
+          <to>reslabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.resolve</source>
+        <title>Resolve</title>
+      </DotControl>
+
+      <!-- ATTRIBUTES: Physical -->
+      <genericcontrol name="attributes2">
+        <bounds>172,98,160,70</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="strlabel">
+        <anchored>
+          <to>attributes2</to>
+          <position>insidetopleft</position>
+          <offset>10,10</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Strength</static>
+        <script>
+          function onDrag(...)
+            return window.strength.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Strength", window.strength.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="strength">
+        <anchored>
+          <to>strlabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.strength</source>
+        <title>Strength</title>
+      </DotControl>
+      <StringControl name="dexlabel">
+        <anchored>
+          <to>strlabel</to>
+          <position>belowleft</position>
+          <offset>0,3</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+        </frame>
+        <static>Dexterity</static>
+        <script>
+          function onDrag(...)
+            return window.dexterity.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Dexterity", window.dexterity.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="dexterity">
+        <anchored>
+          <to>dexlabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.dexterity</source>
+        <title>Dexterity</title>
+      </DotControl>
+      <StringControl name="stalabel">
+        <anchored>
+          <to>dexlabel</to>
+          <position>belowleft</position>
+          <offset>0,3</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+        </frame>
+        <static>Stamina</static>
+        <script>
+          function onDrag(...)
+            return window.stamina.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Stamina", window.stamina.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="stamina">
+        <anchored>
+          <to>stalabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.stamina</source>
+        <title>Stamina</title>
+      </DotControl>
+
+      <!-- ATTRIBUTES: Social -->
+      <genericcontrol name="attributes3">
+        <bounds>332,98,160,70</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="prelabel">
+        <anchored>
+          <to>attributes3</to>
+          <position>insidetopleft</position>
+          <offset>10,10</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Presence</static>
+        <script>
+          function onDrag(...)
+            return window.presence.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Presence", window.presence.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="presence">
+        <anchored>
+          <to>prelabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.presence</source>
+        <title>Presence</title>
+      </DotControl>
+      <StringControl name="manlabel">
+        <anchored>
+          <to>prelabel</to>
+          <position>belowleft</position>
+          <offset>0,3</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <frame>
+          <name>textline</name>
+        </frame>
+        <font>sheetlabel</font>
+        <static>Manipulation</static>
+        <script>
+          function onDrag(...)
+            return window.manipulation.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Manipulation", window.manipulation.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="manipulation">
+        <anchored>
+          <to>manlabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.manipulation</source>
+        <title>Manipulation</title>
+      </DotControl>
+      <StringControl name="comlabel">
+        <anchored>
+          <to>manlabel</to>
+          <position>belowleft</position>
+          <offset>0,3</offset>
+          <size>
+            <height>15</height>
+            <width>140</width>
+          </size>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Composure</static>
+        <script>
+          function onDrag(...)
+            return window.composure.onDrag(...);
+          end
+      
+          function onDoubleClick(...)
+            ModifierStack.addSlot("Composure", window.composure.getValue());
+            return true;
+          end
+        </script>
+      </StringControl>
+      <DotControl name="composure">
+        <anchored>
+          <to>comlabel</to>
+          <position>insidetopright</position>
+          <offset>0,2</offset>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <default>1</default>
+        <source>abilities.composure</source>
+        <title>Composure</title>
+      </DotControl>
+
+      <!-- SKILLS -->
+      <genericcontrol name="skillframe">
+        <bounds>12,168,320,430</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <windowlist name="skills">
+        <anchored>
+          <to>skillframe</to>
+          <position>over</position>
+          <offset>-10,-8</offset>
+        </anchored>
+        <class>charsheet_skillitem</class>
+        <datasource>.skills</datasource>
+        <noscroll/>
+        <script>
+          function onInit()
+            local linename, gameline, skilltype;
+            local order = 1;
+            --[[ get the game line structure ]]
+            linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+            if linename=="" then
+              linename = LineManager.getDefaultName();
+            end
+            gameline = LineManager.getLine(linename);
+            if not gameline then
+              return;
+            end
+            --[[ find/create the default skills ]]
+            for i,skill in ipairs(gameline.Skills) do
+              local name = string.gsub(string.lower(skill.Name),"%W","");
+              local node = getDatabaseNode().getChild(name);
+              --[[ check if we need a new header ]]
+              if skill.Type~=skilltype then
+                skilltype = skill.Type;
+                win = createWindowWithClass("charsheet_skillheader");
+                win.title.setValue(skilltype .. " (" .. skill.Untrained .. " unskilled)");
+                win.order.setValue(order);
+                order = order + 1;
+              end
+              --[[ process this skill ]]
+              if not node then
+                node = getDatabaseNode().createChild(name);
+                node.createChild("name","string").setValue(skill.Name);
+                node.createChild("type","string").setValue(skill.Type);
+                node.createChild("untrained","number").setValue(skill.Untrained);
+              end
+              node.createChild("order","number").setValue(order);
+              order = order + 1;
+            end
+            applySort(true);
+          end
+          
+          function onSortCompare(w1, w2)
+            return w1.order.getValue() &gt; w2.order.getValue();
+          end
+        </script>
+        <skipempty/>
+      </windowlist>
+
+      <!-- TRAITS -->
+      <genericcontrol name="traitframe">
+        <bounds>332,168,160,430</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="hltlabel">
+        <anchored>
+          <to>traitframe</to>
+          <position>insidetop</position>
+          <offset>0,8</offset>
+        </anchored>
+        <center/>
+        <static>Health</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotBoxControl name="health">
+        <anchored>
+          <top>
+            <parent>hltlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>1</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>20</offset>
+          </left>
+          <size>
+            <width>120</width>
+            <height>25</height>
+          </size>
+        </anchored>
+        <dots>12</dots>
+      </DotBoxControl>
+      <StringControl name="willabel">
+        <anchored>
+          <to>traitframe</to>
+          <position>insidetop</position>
+          <offset>0,59</offset>
+        </anchored>
+        <center/>
+        <static>Willpower</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotBoxControl name="willpower">
+        <anchored>
+          <top>
+            <parent>willabel</parent>
+            <anchor>bottom</anchor>
+            <offset>1</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>30</offset>
+          </left>
+          <size>
+            <width>120</width>
+            <height>25</height>
+          </size>
+        </anchored>
+        <degree>1</degree>
+        <dots>10</dots>
+        <nodenames>
+          <slash>spent</slash>
+        </nodenames>
+      </DotBoxControl>
+      <StringControl name="morlabel">
+        <anchored>
+          <to>traitframe</to>
+          <position>insidetop</position>
+          <offset>0,110</offset>
+        </anchored>
+        <center/>
+        <static>Morality</static>
+        <font>sheetlabel</font>
+        <script>
+          function onInit()
+            local linename, gameline;
+            --[[ get the game line structure ]]
+            linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+            if linename=="" then
+              linename = LineManager.getDefaultName();
+            end
+            gameline = LineManager.getLine(linename);
+            if not gameline then
+              return;
+            end
+            setValue(gameline.MoralityTitle);
+          end
+        </script>
+      </StringControl>
+      <windowlist name="morality">
+        <anchored>
+          <top>
+            <parent>morlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>2</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>10</offset>
+          </left>
+          <right>
+            <parent>traitframe</parent>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+        </anchored>
+        <class>charsheet_moralityitem</class>
+        <datasource>.morality.list</datasource>
+        <noscroll/>
+        <script>
+          function onInit()
+            --[[ check if we have a morality value]]
+            local valuenode = getDatabaseNode().getParent().getChild("value");
+            if not valuenode then
+              valuenode = getDatabaseNode().getParent().createChild("value","number");
+              valuenode.setValue(7);
+            end
+            --[[ find/create the entries ]]
+            for i = 1,10 do
+              local key = "id-000"..string.sub("0"..i,-2);
+              local node = getDatabaseNode().getChild(key);
+              --[[ create an entry if not present ]]
+              if not node then
+                node = getDatabaseNode().createChild(key);
+                node.createChild("level","number").setValue(i);
+                node.createChild("degeneration","string");
+              end
+            end
+            applySort(true);
+          end
+          
+          function onSortCompare(w1, w2)
+            return w1.level.getValue() &lt; w2.level.getValue();
+          end
+        </script>
+        <skipempty/>
+      </windowlist>
+      <StringControl name="sizlabel">
+        <anchored>
+          <top>
+            <parent>morality</parent>
+            <anchor>bottom</anchor>
+            <offset>21</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>10</offset>
+          </left>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Size</static>
+      </StringControl>
+      <NumberField name="size">
+        <anchored>
+          <top>
+            <parent>sizlabel</parent>
+            <anchor>top</anchor>
+            <offset>1</offset>
+          </top>
+          <right>
+            <parent>traitframe</parent>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <size>
+            <width>30</width>
+            <height>13</height>
+          </size>
+        </anchored>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <tabtarget>
+          <next>speed</next>
+          <prev>group</prev>
+        </tabtarget>
+      </NumberField>
+      <StringControl>
+        <anchored>
+          <top>
+            <parent>sizlabel</parent>
+            <anchor>top</anchor>
+          </top>
+          <left>
+            <parent>sizlabel</parent>
+            <anchor>right</anchor>
+            <offset>5</offset>
+          </left>
+          <right>
+            <parent>size</parent>
+            <anchor>left</anchor>
+          </right>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,3,0,0</offset>
+        </frame>
+        <static/>
+        <script>
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.size.setFocus(true);
+          end
+        </script>
+      </StringControl>
+      <StringControl name="spdlabel">
+        <anchored>
+          <top>
+            <parent>sizlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>10</offset>
+          </left>
+        </anchored>
+        <static>Speed</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <NumberField name="speed">
+        <anchored>
+          <top>
+            <parent>spdlabel</parent>
+            <anchor>top</anchor>
+            <offset>1</offset>
+          </top>
+          <right>
+            <parent>traitframe</parent>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <size>
+            <width>30</width>
+            <height>13</height>
+          </size>
+        </anchored>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <tabtarget>
+          <next>initiative</next>
+          <prev>size</prev>
+        </tabtarget>
+      </NumberField>
+      <StringControl>
+        <anchored>
+          <top>
+            <parent>spdlabel</parent>
+            <anchor>top</anchor>
+          </top>
+          <left>
+            <parent>spdlabel</parent>
+            <anchor>right</anchor>
+            <offset>5</offset>
+          </left>
+          <right>
+            <parent>speed</parent>
+            <anchor>left</anchor>
+          </right>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,3,0,0</offset>
+        </frame>
+        <static/>
+        <script>
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.speed.setFocus(true);
+          end
+        </script>
+      </StringControl>
+      <StringControl name="inilabel">
+        <anchored>
+          <top>
+            <parent>spdlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>10</offset>
+          </left>
+        </anchored>
+        <static>Initiative Mod</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <NumberField name="initiative">
+        <anchored>
+          <top>
+            <parent>inilabel</parent>
+            <anchor>top</anchor>
+            <offset>1</offset>
+          </top>
+          <right>
+            <parent>traitframe</parent>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <size>
+            <width>30</width>
+            <height>13</height>
+          </size>
+        </anchored>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <tabtarget>
+          <next>defense</next>
+          <prev>speed</prev>
+        </tabtarget>
+      </NumberField>
+      <StringControl>
+        <anchored>
+          <top>
+            <parent>inilabel</parent>
+            <anchor>top</anchor>
+          </top>
+          <left>
+            <parent>inilabel</parent>
+            <anchor>right</anchor>
+            <offset>5</offset>
+          </left>
+          <right>
+            <parent>initiative</parent>
+            <anchor>left</anchor>
+          </right>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,3,0,0</offset>
+        </frame>
+        <static/>
+        <script>
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.initiative.setFocus(true);
+          end
+        </script>
+      </StringControl>
+      <StringControl name="deflabel">
+        <anchored>
+          <top>
+            <parent>inilabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>10</offset>
+          </left>
+        </anchored>
+        <static>Defense</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <NumberField name="defense">
+        <anchored>
+          <top>
+            <parent>deflabel</parent>
+            <anchor>top</anchor>
+            <offset>1</offset>
+          </top>
+          <right>
+            <parent>traitframe</parent>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <size>
+            <width>30</width>
+            <height>13</height>
+          </size>
+        </anchored>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <tabtarget>
+          <next>experience</next>
+          <prev>initiative</prev>
+        </tabtarget>
+      </NumberField>
+      <StringControl>
+        <anchored>
+          <top>
+            <parent>deflabel</parent>
+            <anchor>top</anchor>
+          </top>
+          <left>
+            <parent>deflabel</parent>
+            <anchor>right</anchor>
+            <offset>5</offset>
+          </left>
+          <right>
+            <parent>defense</parent>
+            <anchor>left</anchor>
+          </right>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,3,0,0</offset>
+        </frame>
+        <static/>
+        <script>
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.defense.setFocus(true);
+          end
+        </script>
+      </StringControl>
+      <StringControl name="explabel">
+        <anchored>
+          <top>
+            <parent>deflabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>traitframe</parent>
+            <anchor>left</anchor>
+            <offset>10</offset>
+          </left>
+        </anchored>
+        <static>Experience</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <NumberField name="experience">
+        <anchored>
+          <top>
+            <parent>explabel</parent>
+            <anchor>top</anchor>
+            <offset>1</offset>
+          </top>
+          <right>
+            <parent>traitframe</parent>
+            <anchor>right</anchor>
+            <offset>-10</offset>
+          </right>
+          <size>
+            <width>30</width>
+            <height>13</height>
+          </size>
+        </anchored>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <tabtarget>
+          <next>name</next>
+          <prev>defense</prev>
+        </tabtarget>
+      </NumberField>
+      <StringControl>
+        <anchored>
+          <top>
+            <parent>explabel</parent>
+            <anchor>top</anchor>
+          </top>
+          <left>
+            <parent>explabel</parent>
+            <anchor>right</anchor>
+            <offset>5</offset>
+          </left>
+          <right>
+            <parent>experience</parent>
+            <anchor>left</anchor>
+          </right>
+        </anchored>
+        <font>sheetlabel</font>
+        <frame>
+          <name>textline</name>
+          <offset>0,3,0,0</offset>
+        </frame>
+        <static/>
+        <script>
+          function onClickDown(...)
+            return true;
+          end
+          
+          function onClickRelease(...)
+            window.experience.setFocus(true);
+          end
+        </script>
+      </StringControl>
+    </sheetdata>
+  </windowclass>
+</root>

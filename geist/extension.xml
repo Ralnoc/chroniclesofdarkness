@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <properties>
+	  <name>Geist: The Sin-Eaters</name>
+    <version>1</version>
+    
+    <author>White Wolf</author>
+    <description>Rum Is the Drink the Dead Like Best</description>
+
+    <ruleset>
+      <name>World of Darkness</name>
+    </ruleset>
+  </properties>
+
+  <base>
+    <!-- mage script file -->
+    <script name="GeistScript" file="geist.lua"/>
+
+    <!-- icons -->
+    <icon name="geist_button" file="geist_button.png" />
+
+    <!-- frames -->
+    <framedef name="geist_sheet">
+      <bitmap file="geist_sheet.png" />
+      <topleft rect="0,0,22,22" />
+      <top rect="22,0,481,22" />
+      <topright rect="503,0,22,22" />
+      <left rect="0,22,22,567" />
+      <middle rect="22,22,481,567" />
+      <right rect="503,22,22,567" />
+      <bottomleft rect="0,589,22,22" />
+      <bottom rect="22,589,481,22" />
+      <bottomright rect="503,589,22,22" />
+    </framedef>
+
+    <!-- window classes -->
+    <includefile source="geist_special.xml" />
+    <includefile source="geist_main.xml" />
+
+    <!-- charsheet templates -->
+    <template name="geist_special">
+      <subwindow>
+        <bounds>0,0,-23,-1</bounds>
+        <class>geist_special</class>
+      </subwindow>
+    </template>
+ 
+    <!-- redefine the main character sheet so skill entries can include a 'rote' checkbox -->
+    <template name="geist_main">
+      <subwindow>
+        <bounds>0,0,-23,-1</bounds>
+        <class>geist_main</class>
+      </subwindow>
+    </template>
+
+  </base>
+</root>

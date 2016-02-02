@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <properties>
+	  <name>Promethean: The Created</name>
+    <version>1</version>
+    
+    <author>White Wolf</author>
+    <description>The Lamb and the Tiger</description>
+
+    <ruleset>
+      <name>World of Darkness</name>
+    </ruleset>
+  </properties>
+
+  <base>
+    <!-- mage script file -->
+    <script name="PrometheanScript" file="promethean.lua"/>
+
+    <!-- icons -->
+    <icon name="promethean_button" file="promethean_button.png" />
+
+    <!-- frames -->
+    <framedef name="promethean_sheet">
+      <bitmap file="promethean_sheet.png" />
+      <topleft rect="0,0,22,22" />
+      <top rect="22,0,481,22" />
+      <topright rect="503,0,22,22" />
+      <left rect="0,22,22,567" />
+      <middle rect="22,22,481,567" />
+      <right rect="503,22,22,567" />
+      <bottomleft rect="0,589,22,22" />
+      <bottom rect="22,589,481,22" />
+      <bottomright rect="503,589,22,22" />
+    </framedef>
+
+    <!-- window classes -->
+    <includefile source="promethean_special.xml" />
+    <includefile source="promethean_other.xml" />
+    <includefile source="promethean_main.xml" />
+
+    <!-- charsheet templates -->
+    <template name="promethean_special">
+      <subwindow>
+        <bounds>0,0,-23,-1</bounds>
+        <class>promethean_special</class>
+      </subwindow>
+    </template>
+
+    <template name="promethean_other">
+      <subwindow>
+        <bounds>0,0,-23,-1</bounds>
+        <class>promethean_other</class>
+      </subwindow>
+    </template>
+ 
+    
+    <template name="promethean_main">
+      <subwindow>
+        <bounds>0,0,-23,-1</bounds>
+        <class>promethean_main</class>
+      </subwindow>
+    </template>
+
+  </base>
+</root>

@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+
+ 
+
+  <windowclass name="mage_rotes">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <sheetdata>
+      <!-- Merits -->
+      <genericcontrol name="spellframe">
+        <bounds>12,8,240,140</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>spellframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Active Spells</static>
+      </StringControl>
+      <windowlist name="spells">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>spellframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>spellframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>spellframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>spellframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.spells</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>spells</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>spells</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+      <!-- Dedicated Magical Tool -->
+      <genericcontrol name="toolframe">
+        <bounds>12,148,240,100</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>toolframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Dedicated Magical Tool</static>
+      </StringControl>
+      <StringField name="magictools">
+        <anchored>
+          <top>
+            <parent>toolframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>toolframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>toolframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>toolframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- Spells Cast Upon Self -->
+      <genericcontrol name="selfframe">
+        <bounds>252,8,240,140</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>selfframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Spells Cast Upon Self</static>
+      </StringControl>
+      <StringField name="selfs">
+        <anchored>
+          <top>
+            <parent>selfframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>selfframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>selfframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>selfframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- Protective Spells -->
+      <genericcontrol name="protframe">
+        <bounds>252,148,240,100</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>protframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Protective Spells</static>
+      </StringControl>
+      <StringField name="protspells">
+        <anchored>
+          <top>
+            <parent>protframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>protframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>protframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>protframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- Rotes -->
+      <genericcontrol name="roteframe">
+        <bounds>12,248,480,350</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>roteframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Rotes</static>
+      </StringControl>
+      <stringcontrol>
+        <anchored>
+          <to>roteframe</to>
+          <position>insidetopright</position>
+          <offset>128,7</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Ruling</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>roteframe</to>
+          <position>insidetopright</position>
+          <offset>128,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Arcana</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>roteframe</to>
+          <position>insidetopright</position>
+          <offset>83,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Dots</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>roteframe</to>
+          <position>insidetopright</position>
+          <offset>48,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Pool</static>
+      </stringcontrol>
+      <stringcontrol>
+        <anchored>
+          <to>roteframe</to>
+          <position>insidetopright</position>
+          <offset>13,17</offset>
+          <size>
+            <width>30</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Page #</static>
+      </stringcontrol>
+      <windowlist name="rotes">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>roteframe</parent>
+            <anchor>top</anchor>
+            <offset>26</offset>
+          </top>
+          <left>
+            <parent>roteframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>roteframe</parent>
+            <anchor>right</anchor>
+            <offset>-13</offset>
+          </right>
+          <size>
+            <height>180</height>
+          </size>
+        </anchored>
+        <class>mage_roteitem</class>
+        <datasource>.rotes</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>rotes</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>rotes</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+      <StringControl>
+        <anchored>
+          <to>rotes</to>
+          <position>belowleft</position>
+          <offset>-1,2</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Enchanted Items</static>
+      </StringControl>
+      <stringcontrol>
+        <anchored>
+          <to>rotes</to>
+          <position>belowright</position>
+          <offset>0,4</offset>
+          <size>
+            <width>50</width>
+          </size>
+        </anchored>
+        <center/>
+        <font>sheetlabelsmall</font>
+        <static>Dice Pool</static>
+      </stringcontrol>
+      <windowlist name="enchanteditems">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>rotes</parent>
+            <anchor>bottom</anchor>
+            <offset>15</offset>
+          </top>
+          <bottom>
+            <parent>roteframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-9</offset>
+          </bottom>
+          <left>
+            <parent>roteframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>roteframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.enchanteditems</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>enchanteditems</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>enchanteditems</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+    </sheetdata>
+  </windowclass>
+
+<windowclass name="mage_roteitem">
+    <sizelimits>
+      <minimum>
+        <height>20</height>
+      </minimum>
+      <maximum>
+        <height>20</height>
+      </maximum>
+    </sizelimits>
+    <script>
+      function onDrag(button, x, y, dragdata)
+        dragdata.setType("number");
+        dragdata.setNumberData(damage.getValue());
+        dragdata.setDescription(name.getValue());
+        return true;
+      end
+    </script>
+    <sheetdata>
+      <textlistitemvalue name="name">
+        <bounds>0,1,-150,18</bounds>
+        <font>sheettext</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </frame>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+        </script>
+      </textlistitemvalue>
+      <textlistitemvalue name="arcana">
+        <bounds>-145,1,40,18</bounds>
+        <font>sheettext</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </frame>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+        </script>
+      </textlistitemvalue>
+
+      <NumberField name="medium" source="range.medium">
+        <bounds>-100,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <hideonvalue>0</hideonvalue>
+      </NumberField>
+      <NumberField name="long" source="range.long">
+        <bounds>-65,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <hideonvalue>0</hideonvalue>
+      </NumberField>
+      <NumberField name="damage">
+        <bounds>-30,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+        </script>
+      </NumberField>
+    </sheetdata>
+  </windowclass>
+
+</root>

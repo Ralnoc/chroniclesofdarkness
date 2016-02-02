@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="mage_special">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <sheetdata>
+     <!-- Arcana -->
+      <genericcontrol name="arcaframe">
+        <bounds>12,8,240,240</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>arcaframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Arcana</static>
+      </StringControl>
+      <windowlist name="arcana">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>arcaframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>arcaframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>arcaframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>arcaframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.arcana</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>arcana</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>arcana</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+      <!-- Special -->
+      <genericcontrol name="mgspcframe">
+        <bounds>252,8,240,140</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl name="manlabel">
+        <anchored>
+          <to>mgspcframe</to>
+          <position>insidetop</position>
+          <offset>0,13</offset>
+        </anchored>
+        <center/>
+        <static>Mana</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotControl name="mana">
+        <anchored>
+          <top>
+            <parent>manlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>5</offset>
+          </top>
+          <left>
+            <parent>mgspcframe</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>100</width>
+            <height>35</height>
+          </size>
+        </anchored>
+        <dots>20</dots>
+        <rowcount>2</rowcount>
+        <spacing>
+          <vertical>15</vertical>
+        </spacing>
+        <title>Mana</title>
+      </DotControl>
+<labeledstring name="manaperturn">
+        <anchored>
+          <to>mgspcframe</to>
+          <position>insidetopleft</position>
+          <offset>78,59</offset>
+          <size>
+            <width>80</width>
+            <height>18</height>
+          </size>
+        </anchored>
+		<center/>
+        <anchorto>mgspcframe</anchorto>
+        <height>20</height>
+        <label>points per turn</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labeledstring>
+
+      <StringControl name="gnolabel">
+        <anchored>
+          <to>mgspcframe</to>
+          <position>insidetop</position>
+          <offset>0,89</offset>
+        </anchored>
+        <center/>
+        <static>Gnosis</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotControl name="gnosis">
+        <anchored>
+          <top>
+            <parent>gnolabel</parent>
+            <anchor>bottom</anchor>
+            <offset>7</offset>
+          </top>
+          <left>
+            <parent>mgspcframe</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>100</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <dots>10</dots>
+        <title>Gnosis</title>
+      </DotControl>
+
+ <!-- Nimbus -->
+      <genericcontrol name="nimbframe">
+        <bounds>252,148,240,100</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>nimbframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Nimbus</static>
+      </StringControl>
+      <StringField name="nimbus">
+        <anchored>
+          <top>
+            <parent>nimbframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>nimbframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>nimbframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>nimbframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- More Notes -->
+      <genericcontrol name="mghstryframe">
+        <bounds>12,248,480,350</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>mghstryframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Character History</static>
+      </StringControl>
+      <StringField name="mghstry">
+        <anchored>
+          <top>
+            <parent>mghstryframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>mghstryframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>mghstryframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>mghstryframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+    </sheetdata>
+  </windowclass>
+</root>
