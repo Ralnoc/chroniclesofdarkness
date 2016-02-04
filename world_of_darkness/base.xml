@@ -6,13 +6,13 @@
 -->
 
 <root version="3.0" release="3" logo="logo.png">
-	<announcement text="CoreRPG ruleset v3.1.5 for Fantasy Grounds\rCopyright 2015 Smiteworks USA, LLC" font="emotefont" icon="rulesetlogo_CoreRPG" />
+	<announcement text="World of Darkness Ruleset v1.0.0 for Fantasy Grounds\rCopyright 2016 FGRepository\rWorld of Darkness\r  Copyright White Wolf, Paradox Interactive,\r  All Rights Reserved" font="emotefont" icon="rulesetlogo_CoreRPG" />
 
 	<!-- Attributes -->
 	<description>
-		<text>Core RPG</text>
-		<author>SmiteWorks USA, LLC</author>
-		<website>http://www.fantasygrounds.com</website>
+		<text>The life you lead is a lie. Your darkest fears aren't make-believe. They're real.</text>
+		<author>FGRepository</author>
+		<website>http://www.fgrepository.com</website>
 	</description>
 	
 	<!-- Tabletop settings -->

@@ -9,11 +9,13 @@
 	<!-- Desktop background -->
 	<framedef name="desktop">
 		<bitmap file="graphics/frames/desktop.png" />
-		<top rect="0,1,324,151" />
-		<middle rect="1,154,200,200" />
-		<right rect="450,0,100,144" />
-		<bottomright rect="450,0,100,144" />
-		<bottom rect="219,437,567,132" />
+		<topleft rect="0,0,300,500" />
+		<top     rect="300,0,500,500" />
+		<topright rect="800,0,100,500" />
+		<left    rect="500,0,300,500" />
+		<middle  rect="300,0,500,500" />
+		<right   rect="900,0,100,500" />
+		<decal   rect="300,500,500,200" />
 	</framedef>
 	
 	<!-- Tooltips -->
@@ -148,15 +150,7 @@
 	<!-- Chat window -->
 	<framedef name="chatbox">
 		<bitmap file="graphics/frames/chatbox.png" />
-		<topleft rect="0,0,18,15" />
-		<top rect="18,0,487,15" />
-		<topright rect="505,0,18,15" />
-		<left rect="0,15,18,476" />
-		<middle rect="18,15,487,476" />
-		<right rect="505,15,18,476" />
-		<bottomleft rect="0,491,18,12" />
-		<bottom rect="18,491,487,12" />
-		<bottomright rect="505,491,18,12" />
+		<middle rect="0,0,390,560" />
 	</framedef>
 	<framedef name="chatentry">
 		<bitmap file="graphics/frames/chatentry.png" />

@@ -9,8 +9,6 @@ function onInit()
 	registerPublicNodes();
 	
 	buildDesktop();
-	
-	OptionsManager.setOptionDefault("DDCL", "desktopdecal_sw");
 end
 
 function onDesktopInit()

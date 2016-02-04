@@ -7,7 +7,6 @@
 
 <root>
 	<icon name="rulesetlogo_CoreRPG" file="graphics/icons/rulesetlogo_CoreRPG.png" />
-	<icon name="desktopdecal_sw" file="graphics/decals/desktopdecal_sw.png" />
 
 	<!-- Common -->
 	<icon name="window_resize" file="graphics/icons/window_resize.png" />
