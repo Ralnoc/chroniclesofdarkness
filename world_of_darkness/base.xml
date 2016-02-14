@@ -6,7 +6,7 @@
 -->
 
 <root version="3.0" release="3" logo="logo.png">
-	<announcement text="World of Darkness Ruleset v1.0.0 for Fantasy Grounds\r  Copyright 2016 FGRepository\rWorld of Darkness\r  Copyright White Wolf, Paradox Interactive,\r  All Rights Reserved" font="emotefont" icon="rulesetlogo_CoreRPG" />
+	<announcement text="World of Darkness Ruleset v1.0.0 for Fantasy Grounds\r  Copyright 2016 FGRepository\rWorld of Darkness\r  Copyright White Wolf, Paradox Interactive,\r  All Rights Reserved" font="emotefont" icon="rulesetlogo_nWoD" />
 
 	<!-- Attributes -->
 	<description>

@@ -3,7 +3,7 @@
 -- attribution and copyright information.
 --
 
-local rsname = "CoreRPG";
+local rsname = "nWoD";
 
 function onInit()
 	if User.isHost() or User.isLocal() then
