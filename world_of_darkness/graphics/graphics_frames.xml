@@ -385,7 +385,21 @@
 
 	<!-- Characters -->
 	<framedef name="charsheet">
-		<bitmap file="graphics/frames/charsheet.png" />
+		<bitmap file="graphics/frames/mortal_sheet.png" />
+		<topleft rect="0,0,22,22" />
+		<top rect="22,0,481,22" />
+		<topright rect="503,0,22,22" />
+		<left rect="0,22,22,567" />
+		<middle rect="22,22,481,567" />
+		<right rect="503,22,22,567" />
+		<bottomleft rect="0,589,22,22" />
+		<bottom rect="22,589,481,22" />
+		<bottomright rect="503,589,22,22" />
+	</framedef>
+
+	<!-- NPCs -->
+	<framedef name="npc_sheet">
+		<bitmap file="graphics/frames/npc_sheet.png" />
 		<offset>25,40,25,25</offset>
 		<insideoffset>0,0,7,7</insideoffset>
 	</framedef>
