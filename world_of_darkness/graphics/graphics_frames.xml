@@ -79,7 +79,15 @@
 	<!-- Control frames -->
 	<framedef name="groupbox">
 		<bitmap file="graphics/frames/groupbox.png" />
-		<offset>18,18,17,17</offset>
+		<topleft rect="0,0,10,10" />
+		<top rect="10,0,30,10" />
+		<topright rect="40,0,10,10" />
+		<left rect="0,10,10,30" />
+		<middle rect="10,10,30,30" />
+		<right rect="40,10,10,30" />
+		<bottomleft rect="0,40,10,10" />
+		<bottom rect="10,40,30,10" />
+		<bottomright rect="40,40,10,10" />
 	</framedef>
 	<framedef name="fielddark">
 		<bitmap file="graphics/frames/fielddark.png" />
