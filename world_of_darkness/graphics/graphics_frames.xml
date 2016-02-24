@@ -158,7 +158,7 @@
 	<!-- Chat window -->
 	<framedef name="chatbox">
 		<bitmap file="graphics/frames/chatbox.png" />
-		<middle rect="0,0,390,560" />
+		<middle rect="0,0,523,503" />
 	</framedef>
 	<framedef name="chatentry">
 		<bitmap file="graphics/frames/chatentry.png" />
