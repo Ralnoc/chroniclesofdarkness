@@ -158,7 +158,15 @@
 	<!-- Chat window -->
 	<framedef name="chatbox">
 		<bitmap file="graphics/frames/chatbox.png" />
-		<middle rect="0,0,523,503" />
+		<topleft rect="0,0,50,50" />
+		<top rect="50,0,393,50" />
+		<topright rect="443,0,80,50" />
+		<left rect="0,50,50,403" />
+		<middle rect="50,50,393,403" />
+		<right rect="443,50,80,403" />
+		<bottomleft rect="0,463,50,50" />
+		<bottom rect="50,463,393,50" />
+		<bottomright rect="443,463,80,50" />
 	</framedef>
 	<framedef name="chatentry">
 		<bitmap file="graphics/frames/chatentry.png" />

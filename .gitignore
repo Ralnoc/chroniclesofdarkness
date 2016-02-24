@@ -1,3 +1,4 @@
 .idea
 *.iml
 Raw Images/*
+*.old
