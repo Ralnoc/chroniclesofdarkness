@@ -6,7 +6,7 @@
 -->
 
 <root>
-	<icon name="rulesetlogo_nWoD" file="graphics/icons/rulesetlogo_nWoD.png" />
+	<icon name="rulesetlogo_nWoD" file="graphics/icons/rulesetlogo_CoD.png" />
 
 	<!-- Common -->
 	<icon name="window_resize" file="graphics/icons/window_resize.png" />
