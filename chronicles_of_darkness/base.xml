@@ -5,8 +5,8 @@
   attribution and copyright information.
 -->
 
-<root version="3.0" release="3" logo="logo.png">
-	<announcement text="New World of Darkness Ruleset v1.0.0\r  Copyright 2016 FGRepository\rWorld of Darkness\r  Copyright White Wolf, Paradox Interactive,\r  All Rights Reserved" font="emotefont" icon="rulesetlogo_nWoD" />
+<root version="2.0.0" release="1" logo="logo.png">
+	<announcement text="Chronicles of Darkness Ruleset v1.0.0\r  Copyright 2016 FGRepository\rWorld of Darkness\r  Copyright Onyx Path Publishing,\r  All Rights Reserved" font="emotefont" icon="rulesetlogo_nWoD" />
 
 	<!-- Attributes -->
 	<description>
