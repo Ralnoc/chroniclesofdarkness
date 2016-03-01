@@ -6,15 +6,18 @@
 -->
 
 <root version="3" release="1" logo="logo.png">
-	<announcement text="Chronicles of Darkness Ruleset v1.0.0\r  Copyright 2016 FGRepository\rWorld of Darkness\r  Copyright Onyx Path Publishing,\r  All Rights Reserved" font="emotefont" icon="rulesetlogo_nWoD" />
+	<announcement text="Chronicles of Darkness Ruleset v1.0.0\rCopyright 2016 FGRepository\r\rChronicles of Darkness\rCopyright Onyx Path Publishing\rAll Rights Reserved" font="emotefont" icon="rulesetlogo_nWoD" />
 
 	<!-- Attributes -->
 	<description>
 		<text>The life you lead is a lie. Your darkest fears aren't make-believe. They're real.</text>
-		<author>FGRepository</author>
+		<author>DarkMatter Productions</author>
 		<website>http://www.fgrepository.com</website>
 	</description>
-	
+
+	<!-- Layers -->
+	<importruleset source="CoreRPG" />
+
 	<!-- Tabletop settings -->
 	<includefile source="gameelements.xml" />
 
