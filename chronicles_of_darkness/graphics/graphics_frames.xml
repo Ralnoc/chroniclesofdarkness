@@ -17,7 +17,7 @@
 		<right   rect="900,0,100,500" />
 		<decal   rect="300,500,500,200" />
 	</framedef>
-	
+
 	<!-- Tooltips -->
 	<framedef name="tooltipbox">
 		<bitmap file="graphics/frames/tooltipbox.png" />
