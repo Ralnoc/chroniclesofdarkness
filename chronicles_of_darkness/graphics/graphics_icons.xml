@@ -6,7 +6,8 @@
 -->
 
 <root>
-	<icon name="rulesetlogo_nWoD" file="graphics/icons/rulesetlogo_CoD.png" />
+	<icon name="rulesetlogo_CoD" file="graphics/icons/rulesetlogo_CoD.png" />
+	<icon name="desktopdecal_sw" file="graphics/decals/desktopdecal_sw.png" />
 
 	<!-- Common -->
 	<icon name="window_resize" file="graphics/icons/window_resize.png" />
@@ -37,6 +38,7 @@
 	<icon name="tempmod" file="graphics/icons/tempmod.png" />
 	<icon name="coins" file="graphics/icons/coins.png" />
 	<icon name="xp" file="graphics/icons/xp.png" />
+	<icon name="blank" file="graphics/icons/blank.png" />
 
 	<icon name="button_add" file="graphics/buttons/button_add.png" />
 	<icon name="button_add_down" file="graphics/buttons/button_add_down.png" />

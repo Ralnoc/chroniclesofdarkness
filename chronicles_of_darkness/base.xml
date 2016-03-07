@@ -6,7 +6,7 @@
 -->
 
 <root version="3" release="1" logo="logo.png">
-	<announcement text="Chronicles of Darkness Ruleset v1.0.0\rCopyright 2016 FGRepository\r\rChronicles of Darkness\rCopyright Onyx Path Publishing\rAll Rights Reserved" font="emotefont" icon="rulesetlogo_nWoD" />
+	<announcement text="Chronicles of Darkness Ruleset v1.0.0\rCopyright 2016 DarkMatter Productions\r\rChronicles of Darkness\rCopyright Onyx Path Publishing\rAll Rights Reserved" font="emotefont" icon="rulesetlogo_CoD" />
 
 	<!-- Attributes -->
 	<description>
