@@ -122,6 +122,9 @@
 	<includefile source="campaign/record_ability.xml" />
 	<script name="CharManager" file="campaign/scripts/manager_char.lua" />
 
+	<!-- GAME LINE SUPPORT -->
+	<script name="LineManager" file="campaign/scripts/linemanager.lua" />
+
 	<includefile source="campaign/record_quest.xml" />
 	<includefile source="campaign/record_npc.xml" />
 	<includefile source="campaign/record_encounter.xml" />

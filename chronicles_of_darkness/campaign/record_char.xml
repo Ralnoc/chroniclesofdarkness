@@ -29,22 +29,26 @@
 			<button_charactivate name="speak">
 				<bounds>-41,30,23,22</bounds>
 			</button_charactivate>
-		
+
+			<charsheet_selector name="charsheet_selector_logo">
+				<bounds>422,21,65,65</bounds>
+			</charsheet_selector>
+
 			<token_char name="token">
-				<bounds>-86,23,40,40</bounds>
+				<bounds>-105,30,20,20</bounds>
 			</token_char>
 		
 			<genericcontrol>
-				<bounds>-137,21,45,45</bounds>
+				<bounds>-137,29,25,25</bounds>
 				<icon>charlist_base</icon>
 				<disabled />
 			</genericcontrol>
 			<portrait_charlocal name="localportrait">
-				<bounds>-137,21,45,45</bounds>
+				<bounds>-137,29,25,25</bounds>
 				<invisible />
 			</portrait_charlocal>
 			<portrait_char name="portrait">
-				<bounds>-137,21,45,45</bounds>
+				<bounds>-137,29,25,25</bounds>
 			</portrait_char>
 			
 			<frame_char name="overviewframe">

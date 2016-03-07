@@ -141,6 +141,9 @@
 	<icon name="d12icon" file="graphics/icons/d12_icon.png" />
 	<icon name="d20icon" file="graphics/icons/d20_icon.png" />
 
+	<!-- Character Sheet Type -->
+	<icon name="charsheet_selector_base" file="icons/charsheet_selector_base.png" />
+
 	<!-- Character list -->
 	<icon name="charlist_typing" file="graphics/icons/charlist_typing.png" />
 	<icon name="charlist_idling" file="graphics/icons/charlist_idling.png" />
