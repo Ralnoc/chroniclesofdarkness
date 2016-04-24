@@ -92,24 +92,6 @@
 			</script>
 		</buttoncontrol>
 	</template>
-	<template name="charsheet_selector">
-		<buttoncontrol>
-			<icon>charsheet_selector_base</icon>
-			<script>
-				function onInit()
-				local linename = window.getDatabaseNode().createChild("gameline","string").getValue();
-				local gameline;
-				if linename=="" then
-				linename = LineManager.getDefaultName();
-				end
-				gameline = LineManager.getLine(linename);
-				if gameline then
-				setIcon(gameline.CSLogo);
-				end
-				end
-			</script>
-		</buttoncontrol>
-	</template>
 	<template name="portrait_charlocal">
 		<portraitselectioncontrol>
 			<base>portraittoken_base</base>
@@ -325,12 +307,13 @@
 	</template>
 	<template name="string_charinvname">
 		<string_textlistitem>
+			<nodrop />
 			<script file="campaign/scripts/char_invname.lua" />
 		</string_textlistitem>
 	</template>
 	<template name="string_charinvloc">
 		<string_textlistitem>
-			<nodelete />
+			<nodrop />
 			<delaykeyupdate merge="delete" />
 			<script file="campaign/scripts/char_invloc.lua" />
 		</string_textlistitem>
