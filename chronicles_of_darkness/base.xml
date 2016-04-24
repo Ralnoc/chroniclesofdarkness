@@ -148,4 +148,7 @@
 	<includefile source="ps/ps_order.xml" />
 	<script name="PartyManager" file="ps/scripts/manager_ps.lua" />
 	<script name="PartyLootManager" file="ps/scripts/manager_ps_loot.lua" />
+
+	<!-- GAME LINES -->
+	<includefile source="campaign/gameline_mortal.xml" />
 </root>
