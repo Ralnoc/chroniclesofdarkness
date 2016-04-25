@@ -98,6 +98,7 @@
 	
 	<!-- Campaign Records -->
 	<includefile source="campaign/template_campaign.xml" />
+	<includefile source="campaign/template_char.xml" />
 
 	<includefile source="campaign/campaign_story.xml" />
 	<includefile source="campaign/campaign_quests.xml" />
