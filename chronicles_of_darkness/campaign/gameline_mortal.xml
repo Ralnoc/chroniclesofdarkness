@@ -16,63 +16,89 @@
   <!-- icons -->
   <icon name="mortal_button" file="icons/mortal_button.png" />
 
-  <!-- frames -->
-  <framedef name="mortal_sheet">
-    <bitmap file="frames/mortal_sheet.png" />
-    <topleft rect="0,0,22,22" />
-    <top rect="22,0,481,22" />
-    <topright rect="503,0,22,22" />
-    <left rect="0,22,22,567" />
-    <middle rect="22,22,481,567" />
-    <right rect="503,22,22,567" />
-    <bottomleft rect="0,589,22,22" />
-    <bottom rect="22,589,481,22" />
-    <bottomright rect="503,589,22,22" />
-  </framedef>
+  <!--&lt;!&ndash; frames &ndash;&gt;-->
+  <!--<framedef name="mortal_sheet">-->
+    <!--<bitmap file="frames/mortal_sheet.png" />-->
+    <!--<topleft rect="0,0,22,22" />-->
+    <!--<top rect="22,0,481,22" />-->
+    <!--<topright rect="503,0,22,22" />-->
+    <!--<left rect="0,22,22,567" />-->
+    <!--<middle rect="22,22,481,567" />-->
+    <!--<right rect="503,22,22,567" />-->
+    <!--<bottomleft rect="0,589,22,22" />-->
+    <!--<bottom rect="22,589,481,22" />-->
+    <!--<bottomright rect="503,589,22,22" />-->
+  <!--</framedef>-->
 
-  <!-- window classes -->
-  <includefile source="charsheet_listclasses.xml" />
-  <includefile source="charsheet_main.xml" />
-  <includefile source="charsheet_other.xml" />
-  <includefile source="charsheet_notes.xml" />
-  
-  <!-- charsheet templates -->
-  <template name="charsheet_main">
-    <subwindow>
-      <bounds>0,0,-23,-1</bounds>
-      <class>charsheet_main</class>
-    </subwindow>
-  </template>
-  <template name="charsheet_other">
-    <subwindow>
-      <bounds>0,0,-23,-1</bounds>
-      <class>charsheet_other</class>
-    </subwindow>
-  </template>
-  <template name="charsheet_notes">
-    <subwindow>
-      <bounds>0,0,-23,-1</bounds>
-      <class>charsheet_notes</class>
-    </subwindow>
-  </template>
-  <template name="charsheet_tabs">
-    <tabcontrol name="tabs">
-      <anchored>
-        <left>
-          <anchor>right</anchor>
-          <offset>-22</offset>
-        </left>
-        <top>
-          <anchor>top</anchor>
-          <offset>50</offset>
-        </top>
-        <size>
-          <width>18</width>
-          <height>491</height>
-        </size>
-      </anchored>
-    </tabcontrol>
-  </template>
+  <!--&lt;!&ndash; window classes &ndash;&gt;-->
+  <!--<includefile source="charsheet_listclasses.xml" />-->
+  <!--<includefile source="charsheet_main.xml" />-->
+  <!--<includefile source="charsheet_other.xml" />-->
+  <!--<includefile source="charsheet_notes.xml" />-->
+  <!---->
+  <!--&lt;!&ndash; charsheet templates &ndash;&gt;-->
+  <!--<template name="charsheet_main">-->
+    <!--<subwindow>-->
+      <!--<bounds>0,0,-23,-1</bounds>-->
+      <!--<class>charsheet_main</class>-->
+    <!--</subwindow>-->
+  <!--</template>-->
+  <!--<template name="charsheet_other">-->
+    <!--<subwindow>-->
+      <!--<bounds>0,0,-23,-1</bounds>-->
+      <!--<class>charsheet_other</class>-->
+    <!--</subwindow>-->
+  <!--</template>-->
+  <!--<template name="charsheet_notes">-->
+    <!--<subwindow>-->
+      <!--<bounds>0,0,-23,-1</bounds>-->
+      <!--<class>charsheet_notes</class>-->
+    <!--</subwindow>-->
+  <!--</template>-->
+  <!--<template name="charsheet_tabs">-->
+    <!--<tabcontrol name="tabs">-->
+      <!--<anchored>-->
+        <!--<left>-->
+          <!--<anchor>right</anchor>-->
+          <!--<offset>-22</offset>-->
+        <!--</left>-->
+        <!--<top>-->
+          <!--<anchor>top</anchor>-->
+          <!--<offset>50</offset>-->
+        <!--</top>-->
+        <!--<size>-->
+          <!--<width>18</width>-->
+          <!--<height>491</height>-->
+        <!--</size>-->
+      <!--</anchored>-->
+    <!--</tabcontrol>-->
+  <!--</template>-->
+
+  <!--#TODO: Resolve the below errors when creating character sheets with gameline data in place -->
+  <!--Script Error: [string "faction"]:1: attempt to call global 'setLabel' (a nil value)-->
+  <!--Script Error: [string "group_name"]:1: attempt to call global 'setLabel' (a nil value)-->
+  <!--Ruleset Warning: Could not find template (charsheet_tabs) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (player) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (chronicle) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (virtue) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (vice) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (faction) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (group_name) in windowclass (charsheet)-->
+  <!--Ruleset Warning: Could not find template (charsheet_main) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (player) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (chronicle) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (virtue) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (vice) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (faction) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (group_name) in windowclass (charsheet)-->
+  <!--Script Error: [string "charsheet"]:1: attempt to index upvalue 'tabcontrol' (a nil value)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (player) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (chronicle) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (virtue) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (vice) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (faction) in windowclass (charsheet)-->
+  <!--Ruleset Warning: window: Anchored static height ignored for control (group_name) in windowclass (charsheet)-->
+
 
   <script name="MortalScript">
     local GameLine =

@@ -8,6 +8,15 @@
 <root>
 	<windowclass name="charsheet_main">
 		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				local linename = getDatabaseNode().createChild("gameline","string").getValue();
+				local gameline = LineManager.getLine(linename);
+				if gameline and gameline.onWindowInit then
+					gameline.onWindowInit(self);
+				end
+			end
+		</script>
 		<sheetdata>
 			<frame_char name="attributesframe">
 				<bounds>15,0,-29,-5</bounds>

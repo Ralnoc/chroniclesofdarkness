@@ -9,7 +9,8 @@
 	<windowclass name="charsheet">
 		<frame>charsheet</frame>
 		<placement>
-			<size width="525" height="568" />
+			<size width="525" height="611" />
+			<position x="410" y="90" />
 		</placement>
 		<minimize>minimized_npc</minimize>
 		<tooltip field="name" />
@@ -17,60 +18,222 @@
 		<softclose />
 		<playercontrol />
 		<script>
+			local subwindows = {};
+			local tabcontrol = nil;
+			local linenode = nil;
+
 			function onInit()
 				if User.isLocal() then
 					speak.setVisible(false);
 					portrait.setVisible(false);
 					localportrait.setVisible(true);
 				end
+				local linename;
+				linenode = getDatabaseNode().createChild("gameline","string");
+				linename = linenode.getValue();
+				if linename=="" then
+					linename = LineManager.getDefaultName();
+				end
+				linenode.onUpdate = refresh;
+				setLine(linename);
+			end
+			function setLine(name)
+				local gameline = LineManager.getLine(name);
+				if not gameline then
+					return;
+				end
+				linenode.setValue(gameline.Name);
+			end
+
+			function refresh()
+				local gameline = LineManager.getLine(linenode.getValue());
+				if not gameline then
+					return;
+				end
+				--[[ clear the current windows ]]
+				for i,ctl in ipairs(subwindows) do
+					ctl.destroy();
+				end
+				if tabcontrol then
+					tabcontrol.destroy();
+				end
+				--[[ create the new windows ]]
+				setFrame(gameline.CharSheet.Frame);
+				tabcontrol = createControl(gameline.CharSheet.TabControl,"tabs");
+				for i,tab in ipairs(gameline.CharSheet.Tabs) do
+					subwindows[i] = createControl(tab.Template,tab.Name);
+					tabcontrol.addTab(tab.Name,tab.Icon,nil);
+				end
+				tabcontrol.activateTab(gameline.CharSheet.Tabs.Activate);
 			end
 		</script>
 		<sheetdata>
 			<button_charactivate name="speak">
 				<bounds>-41,30,23,22</bounds>
 			</button_charactivate>
-		
-			<token_char name="token">
-				<bounds>-86,23,40,40</bounds>
-			</token_char>
-		
+
+
+			<genericcontrol name="char_logo">
+				<bounds>-76,33,30,30</bounds>
+				<icon>charlist_base</icon>
+				<script>
+					function onInit()
+					local linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+					local gameline;
+					if linename=="" then
+					linename = LineManager.getDefaultName();
+					end
+					gameline = LineManager.getLine(linename);
+					if gameline then
+					setIcon(gameline.CSLogo);
+					end
+					end
+				</script>
+			</genericcontrol>
+
 			<genericcontrol>
-				<bounds>-137,21,45,45</bounds>
+				<bounds>-112,21,30,30</bounds>
 				<icon>charlist_base</icon>
 				<disabled />
 			</genericcontrol>
 			<portrait_charlocal name="localportrait">
-				<bounds>-137,21,45,45</bounds>
+				<bounds>-112,21,30,30</bounds>
 				<invisible />
 			</portrait_charlocal>
 			<portrait_char name="portrait">
-				<bounds>-137,21,45,45</bounds>
+				<bounds>-112,21,30,30</bounds>
 			</portrait_char>
+			<token_char name="token">
+				<bounds>-113,56,30,30</bounds>
+			</token_char>
 			
 			<frame_char name="overviewframe">
-				<bounds>15,20,-140,45</bounds>
+				<bounds>12,8,400,92</bounds>
 			</frame_char>
+			<!-- Overview Frame: Line 1 -->
 			<string_labeled name="name">
-				<anchored to="overviewframe" position="insidetopleft" offset="15,10" height="20">
-					<right offset="-15" />
-				</anchored>
+				<anchored to="overviewframe" position="insidetopleft" offset="15,10" height="20" width="120" />
 				<labelres>char_label_name</labelres>
+			</string_labeled>
+			<string_labeled name="player">
+				<anchored to="name" position="right" offset="5" height="20" width="120" />
+				<labelres>char_label_player</labelres>
+				<empty>None</empty>
+				<static/>
+				<script>
+					function onInit()
+						local owner;
+						if super and super.onInit then
+							super.onInit();
+						end
+						if User.isHost() then
+							owner = window.getDatabaseNode().getOwner();
+						else
+							owner = User.getUsername();
+						end
+						if not owner then
+							owner = "";
+						end
+						setValue(owner);
+					end
+				</script>
+			</string_labeled>
+			<string_labeled name="chronicle">
+				<anchored to="player" position="right" offset="5" height="20" width="120" />
+				<labelres>char_label_chronicle</labelres>
+				<empty>None</empty>
+				<static/>
+				<script>
+					function onInit()
+						local campaign;
+						if super and super.onInit then
+							super.onInit();
+						end
+						campaign = User.getCampaignName();
+						if not campaign then
+							campaign = "";
+						end
+						setValue(campaign);
+					end
+				</script>
+			</string_labeled>
+			<!-- Overview Frame: Line 2 -->
+			<string_labeled name="concept">
+				<anchored to="overviewframe" position="insidetopleft" offset="15,33" height="20" width="120" />
+				<labelres>char_label_concept</labelres>
+			</string_labeled>
+			<string_labeled name="virtue">
+				<anchored to="concept" position="right" offset="5" height="20" width="120" />
+				<labelres>char_label_virtue</labelres>
+			</string_labeled>
+			<string_labeled name="vice">
+				<anchored to="virtue" position="right" offset="5" height="20" width="120" />
+				<labelres>char_label_vice</labelres>
+			</string_labeled>
+			<!-- Overview Frame: Line 3 -->
+			<string_labeled name="age">
+				<anchored to="overviewframe" position="insidetopleft" offset="15,56" height="20" width="120" />
+				<labelres>char_label_age</labelres>
+			</string_labeled>
+			<string_labeled name="faction">
+				<anchored to="age" position="right" offset="5" height="20" width="120" />
+				<labelres>char_label_faction</labelres>
+				<script>
+					function onInit()
+						local linename, gameline;
+						if super and super.onInit then
+							super.onInit();
+						end
+						--[[ get the game line structure ]]
+						linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+						if linename=="" then
+							linename = LineManager.getDefaultName();
+						end
+						gameline = LineManager.getLine(linename);
+						if not gameline then
+							return;
+						end
+						setLabel(gameline.FactionTitle);
+					end
+				</script>
+			</string_labeled>
+			<string_labeled name="group_name">
+				<anchored to="faction" position="right" offset="5" height="20" width="120" />
+				<labelres>char_label_group_name</labelres>
+				<script>
+					function onInit()
+					local linename, gameline;
+					if super and super.onInit then
+						super.onInit();
+					end
+					--[[ get the game line structure ]]
+					linename = window.getDatabaseNode().createChild("gameline","string").getValue();
+					if linename=="" then
+						linename = LineManager.getDefaultName();
+					end
+					gameline = LineManager.getLine(linename);
+					if not gameline then
+						return;
+					end
+					setLabel(gameline.GroupTitle);
+					end
+				</script>
 			</string_labeled>
 
 			<subwindow name="main">
-				<bounds>0,65,-1,-20</bounds>
+				<bounds>0,100,-1,-10</bounds>
 				<class>charsheet_main</class>
 			</subwindow>
 			<subwindow name="abilities">
-				<bounds>0,65,-1,-20</bounds>
+				<bounds>0,100,-1,-10</bounds>
 				<class>charsheet_abilities</class>
 			</subwindow>
 			<subwindow name="inventory">
-				<bounds>0,65,-1,-20</bounds>
+				<bounds>0,100,-1,-10</bounds>
 				<class>charsheet_inventory</class>
 			</subwindow>
 			<subwindow name="notes">
-				<bounds>0,65,-1,-20</bounds>
+				<bounds>0,100,-1,-10</bounds>
 				<class>charsheet_notes</class>
 			</subwindow>
 
