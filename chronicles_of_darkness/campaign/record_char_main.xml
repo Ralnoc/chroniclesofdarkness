@@ -57,7 +57,7 @@
 					<right offset="-10" />
 				</anchored>
 			</genericcontrol>
-			
+
 			<stringfield name="label">
 				<anchored>
 					<top offset="5" />
@@ -75,7 +75,7 @@
 			</stringfield>
 		</sheetdata>
 	</windowclass>
-	
+
 	<windowclass name="char_main_category">
 		<margins control="0,0,0,5" />
 		<sheetdata>
@@ -104,7 +104,7 @@
 			</list_charmainattribute>
 		</sheetdata>
 	</windowclass>
-	
+
 	<windowclass name="char_attribute">
 		<margins control="0,0,0,3" />
 		<script>
@@ -124,7 +124,7 @@
 				end
 				return true;
 			end
-			
+
 			function onDoubleClick(x, y)
 				if dice.isEmpty() then
 					ModifierStack.addSlot(label.getValue(), bonus.getValue());
@@ -195,7 +195,7 @@
 					function onInit()
 						onValueChanged();
 					end
-					
+
 					function onValueChanged()
 						setVisible(not isEmpty());
 					end
