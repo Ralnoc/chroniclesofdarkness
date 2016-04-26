@@ -64,8 +64,27 @@
 						labelwidget.setPosition("bottomleft", w/2, h/2-4);
 					end
 				end
+
+				function setLabel(label)
+					if labelwidget then
+						labelwidget.destroy();
+					end
+					labelwidget = addTextWidget("sheetlabelinline", string.upper(label));
+					local w,h = labelwidget.getSize();
+					labelwidget.setPosition("bottomleft", w/2, h/2-4);
+				end
 			</script>
 		</stringfield>
+	</template>
+
+	<template name="tabcontrol">
+		<genericcontrol>
+			<frame>
+				<name>tabs</name>
+			</frame>
+			<tab mergerule="resetandadd"/>
+			<script file="campaign/scripts/template_tabcontrol.lua" />
+		</genericcontrol>
 	</template>
 
 	<template name="button_charactivate">

@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+
+   <windowclass name="mage_familiar">
+    <placement>
+      <size>
+        <width>252</width>
+        <height>611</height>
+      </size>
+    </placement>
+    <nodelete />
+    <sheetdata>
+      
+<!-- Traits -->
+      <genericcontrol name="ftraitframe">
+        <bounds>12,8,240,160</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+<StringControl>
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetop</position>
+          <offset>0,13</offset>
+        </anchored>
+		<center/>
+        <font>sheetlabel</font>
+        <static>Familiar's Traits</static>
+      </StringControl>
+<labeledstring name="fname">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>15,25</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>name</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labeledstring>
+<labeledstring name="type">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>15,48</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>type</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labeledstring>
+<labelednumber name="power">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>123,48</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>power</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+<labelednumber name="finesse">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>15,71</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>finesse</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+<labelednumber name="resistance">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>123,71</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>resistance</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+
+<labelednumber name="fsize">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>15,94</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>size</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+<labelednumber name="fspeed">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>123,94</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>speed</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+<labelednumber name="fdefense">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>15,117</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>defense</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+<labelednumber name="finitiative">
+        <anchored>
+          <to>ftraitframe</to>
+          <position>insidetopleft</position>
+          <offset>123,117</offset>
+          <size>
+            <width>100</width>
+            <height>18</height>
+          </size>
+        </anchored>
+        <anchorto>ftraitframe</anchorto>
+        <height>20</height>
+        <label>initiative</label>
+        <tabtarget>
+          <next>None</next>
+          <prev>None</prev>
+        </tabtarget>
+      </labelednumber>
+
+ <!-- Skills -->
+      <genericcontrol name="fskllframe">
+        <bounds>12,168,240,120</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+<StringControl>
+        <anchored>
+          <to>fskllframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Skills</static>
+      </StringControl>
+      <windowlist name="fskills">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>fskllframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>fskllframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>fskllframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>fskllframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.fskills</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>fskills</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>fskills</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+
+
+      <!-- Corpus/Heath / Willpower / Essence -->
+      <genericcontrol name="mgspcframe">
+        <bounds>252,8,240,160</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+
+      <StringControl name="fhealthlabel">
+        <anchored>
+          <to>mgspcframe</to>
+          <position>insidetop</position>
+          <offset>0,13</offset>
+        </anchored>
+        <center/>
+        <static>Corpus/Health</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotBoxControl name="fhealth">
+        <anchored>
+          <top>
+            <parent>fhealthlabel</parent>
+            <anchor>bottom</anchor>
+            <offset>1</offset>
+          </top>
+          <left>
+            <parent>fhealthlabel</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>120</width>
+            <height>25</height>
+          </size>
+        </anchored>
+        <degree>1</degree>
+        <dots>10</dots>
+        <nodenames>
+          <slash>spent</slash>
+        </nodenames>
+      </DotBoxControl>
+
+      <StringControl name="esslabel">
+        <anchored>
+          <to>fhealthlabel</to>
+          <position>insidetop</position>
+          <offset>0,48</offset>
+        </anchored>
+        <center/>
+        <static>Essence</static>
+        <font>sheetlabel</font>
+      </StringControl>
+<DotControl name="essence">
+        <anchored>
+          <top>
+            <parent>esslabel</parent>
+            <anchor>bottom</anchor>
+            <offset>1</offset>
+          </top>
+          <left>
+            <parent>esslabel</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>120</width>
+            <height>25</height>
+          </size>
+        </anchored>
+        <dots>10</dots>
+        <stateicons>
+          <on>box_cross</on>
+          <off>box_empty</off>
+        </stateicons>
+      </DotControl>
+
+      <StringControl name="fwillplabel">
+        <anchored>
+          <to>fhealthlabel</to>
+          <position>insidetop</position>
+          <offset>0,88</offset>
+        </anchored>
+        <center/>
+        <static>Willpower</static>
+        <font>sheetlabel</font>
+      </StringControl>
+      <DotBoxControl name="fwillpower">
+        <anchored>
+          <top>
+            <parent>fwillplabel</parent>
+            <anchor>bottom</anchor>
+            <offset>1</offset>
+          </top>
+          <left>
+            <parent>fhealthlabel</parent>
+            <anchor>left</anchor>
+            <offset>70</offset>
+          </left>
+          <size>
+            <width>120</width>
+            <height>25</height>
+          </size>
+        </anchored>
+        <degree>1</degree>
+        <dots>10</dots>
+        <nodenames>
+          <slash>spent</slash>
+        </nodenames>
+      </DotBoxControl>
+
+
+<!-- Numina -->
+      <genericcontrol name="numiframe">
+        <bounds>252,168,240,120</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>      
+<StringControl>
+        <anchored>
+          <to>numiframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Numina</static>
+      </StringControl>
+      <windowlist name="numina">
+        <allowcreate/>
+        <allowdelete/>
+        <anchored>
+          <top>
+            <parent>numiframe</parent>
+            <anchor>top</anchor>
+            <offset>24</offset>
+          </top>
+          <bottom>
+            <parent>numiframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-16</offset>
+          </bottom>
+          <left>
+            <parent>numiframe</parent>
+            <anchor>left</anchor>
+            <offset>13</offset>
+          </left>
+          <right>
+            <parent>numiframe</parent>
+            <anchor>right</anchor>
+            <offset>-12</offset>
+          </right>
+        </anchored>
+        <class>charsheet_listitem</class>
+        <datasource>.numina</datasource>
+        <script>
+          function onInit()
+            checkEmpty();
+          end
+          
+          function onListRearranged(changed)
+            if changed then
+              checkEmpty();
+            end
+          end
+          
+          function checkEmpty()
+            if #getWindows()==0 then
+              createWindow();
+            end
+          end
+        </script>
+      </windowlist>
+      <scrollercontrol>
+        <anchored>
+          <to>numina</to>
+          <position>insidebottomright</position>
+          <size>
+            <width>45</width>
+            <height>27</height>
+          </size>
+        </anchored>
+        <target>numina</target>
+        <button>
+          <normal>button_scroller</normal>
+          <pressed>button_scroller_down</pressed>
+        </button>
+      </scrollercontrol>
+
+<!-- Influences -->
+      <genericcontrol name="influframe">
+        <bounds>12,288,240,100</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>      
+      <StringControl>
+        <anchored>
+          <to>influframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Influences</static>
+      </StringControl>
+      <StringField name="influences">
+        <anchored>
+          <top>
+            <parent>influframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>influframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>influframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>influframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+<!-- Bans -->
+      <genericcontrol name="banframe">
+        <bounds>252,288,240,100</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>    
+      <StringControl>
+        <anchored>
+          <to>banframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Bans</static>
+      </StringControl>
+      <StringField name="bans">
+        <anchored>
+          <top>
+            <parent>banframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>banframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>banframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>banframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+
+      <!-- More Notes -->
+      <genericcontrol name="famhstryframe">
+        <bounds>12,388,480,210</bounds>
+        <frame>
+          <name>sheetgroup</name>
+        </frame>
+      </genericcontrol>
+      <StringControl>
+        <anchored>
+          <to>famhstryframe</to>
+          <position>insidetopleft</position>
+          <offset>12,13</offset>
+        </anchored>
+        <font>sheetlabel</font>
+        <static>Familiar Description/Background/Notes</static>
+      </StringControl>
+      <StringField name="famhstry">
+        <anchored>
+          <top>
+            <parent>famhstryframe</parent>
+            <anchor>top</anchor>
+            <offset>25</offset>
+          </top>
+          <bottom>
+            <parent>famhstryframe</parent>
+            <anchor>bottom</anchor>
+            <offset>-10</offset>
+          </bottom>
+          <left>
+            <parent>famhstryframe</parent>
+            <anchor>left</anchor>
+            <offset>15</offset>
+          </left>
+          <right>
+            <parent>famhstryframe</parent>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+        </anchored>
+        <multilinespacing>20</multilinespacing>
+        <font>sheettext</font>
+        <frame>
+          <name>textline</name>
+          <offset>2,0,2,0</offset>
+        </frame>
+      </StringField>
+ 
+
+    </sheetdata>
+  </windowclass>
+
+
+
+</root>

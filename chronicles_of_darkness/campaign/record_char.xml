@@ -37,6 +37,7 @@
 				linenode.onUpdate = refresh;
 				setLine(linename);
 			end
+
 			function setLine(name)
 				local gameline = LineManager.getLine(name);
 				if not gameline then
@@ -89,6 +90,11 @@
 					end
 					end
 				</script>
+			</genericcontrol>
+			<genericcontrol name="CharSheetSelectFrame">
+				<bounds>-76,33,30,30</bounds>
+				<icon>invisible_icon</icon>
+				<script file="campaign\scripts\charsheet_select.lua" />
 			</genericcontrol>
 
 			<genericcontrol>
@@ -215,7 +221,7 @@
 					if not gameline then
 						return;
 					end
-					setLabel(gameline.GroupTitle);
+					setLabel(gameline.GroupTitle, false);
 					end
 				</script>
 			</string_labeled>

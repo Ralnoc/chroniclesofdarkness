@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <properties>
+    <name>Mage: The Awakening</name>
+    <version>1</version>
+    
+    <author>White Wolf</author>
+    <description>Mage: The Awakening Support</description>
+
+    <ruleset>
+      <name>Chronicles of Darkness</name>
+    </ruleset>
+  </properties>
+
+  <base>
+    <!-- mage script file -->
+    <script name="MageScript" file="mage.lua"/>
+
+    <!-- icons -->
+    <icon name="mage_button" file="mage_button.png" />
+    <!--<icon name="tab_rotes" file="tab_rotes.png" />-->
+    <!--<icon name="tab_familiar" file="tab_familiar.png" />-->
+
+    <!--&lt;!&ndash; frames &ndash;&gt;-->
+    <!--<framedef name="mage_sheet">-->
+      <!--<bitmap file="mage_sheet.png" />-->
+      <!--<topleft rect="0,0,22,22" />-->
+      <!--<top rect="22,0,481,22" />-->
+      <!--<topright rect="503,0,22,22" />-->
+      <!--<left rect="0,22,22,567" />-->
+      <!--<middle rect="22,22,481,567" />-->
+      <!--<right rect="503,22,22,567" />-->
+      <!--<bottomleft rect="0,589,22,22" />-->
+      <!--<bottom rect="22,589,481,22" />-->
+      <!--<bottomright rect="503,589,22,22" />-->
+    <!--</framedef>-->
+
+    <!--&lt;!&ndash; window classes &ndash;&gt;-->
+    <!--<includefile source="mage_special.xml" />-->
+    <!--<includefile source="mage_rotes.xml" />-->
+    <!--<includefile source="mage_familiar.xml" />-->
+    <!--<includefile source="mage_main.xml" />-->
+
+    <!--&lt;!&ndash; charsheet templates &ndash;&gt;-->
+    <!--<template name="mage_special">-->
+      <!--<subwindow>-->
+        <!--<bounds>0,0,-23,-1</bounds>-->
+        <!--<class>mage_special</class>-->
+      <!--</subwindow>-->
+    <!--</template>-->
+ <!---->
+    <!--<template name="mage_rotes">-->
+      <!--<subwindow>-->
+        <!--<bounds>0,0,-23,-1</bounds>-->
+        <!--<class>mage_rotes</class>-->
+      <!--</subwindow>-->
+    <!--</template>-->
+
+    <!--&lt;!&ndash; redefine the main character sheet so skill entries can include a 'rote' checkbox &ndash;&gt;-->
+    <!--<template name="mage_main">-->
+      <!--<subwindow>-->
+        <!--<bounds>0,0,-23,-1</bounds>-->
+        <!--<class>mage_main</class>-->
+      <!--</subwindow>-->
+    <!--</template>-->
+
+  </base>
+</root>
