@@ -45,7 +45,7 @@ local GameLine =
   },
   CharSheet =
   { Frame = "mage_sheet",
-    TabControl = "charsheet_tabs",
+    TabControl = "tabs_charsheet",
     Tabs = 
     { [1] = {Name="main", Template="mage_main", Icon="tab_main"},
       [2] = {Name="other", Template="charsheet_other", Icon="tab_other"},

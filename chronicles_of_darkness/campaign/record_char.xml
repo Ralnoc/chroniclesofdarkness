@@ -244,23 +244,8 @@
 			</subwindow>
 
 			<tabs_charsheet>
-				<tab>
-					<icon>tab_main</icon>
-					<subwindow>main</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_abilities</icon>
-					<subwindow>abilities</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_inventory</icon>
-					<subwindow>inventory</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_notes</icon>
-					<subwindow>notes</subwindow>
-				</tab>
-				<activate>1</activate>
+				<tabcontrol name="tabs" />
+				<!--<activate>1</activate>-->
 			</tabs_charsheet>
 		
 			<close_charsheet />

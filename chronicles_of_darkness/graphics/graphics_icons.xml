@@ -74,6 +74,7 @@
 	<icon name="combobox_button" file="graphics/icons/combobox_button.png" />
 	<icon name="combobox_button_active" file="graphics/icons/combobox_button_active.png" />
 
+	<icon name="invisible_icon" file="graphics/icons/filler.png" />
 	<!-- Dragging -->
 	<icon name="action_roll" file="graphics/icons/action_roll.png" />
 	<icon name="action_effect" file="graphics/icons/action_effect.png" />

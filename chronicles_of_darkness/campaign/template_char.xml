@@ -79,9 +79,6 @@
 
 	<template name="tabcontrol">
 		<genericcontrol>
-			<frame>
-				<name>tabs</name>
-			</frame>
 			<tab mergerule="resetandadd"/>
 			<script file="campaign/scripts/template_tabcontrol.lua" />
 		</genericcontrol>
