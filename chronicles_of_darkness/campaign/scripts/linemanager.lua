@@ -13,9 +13,6 @@
 --
 -- The LineManager module allows gamelines to be added dynamically to the ruleset, enabling extensions to provide
 -- support for different products (such as Vampire:The Requiem).
---
--- The ruleset is distributed with a default line (Mortal), which is defined below.
---
 
 local linelist = {};
 local default = nil;
