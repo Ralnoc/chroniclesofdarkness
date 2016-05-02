@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="tabs_charsheet">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="50" />
+				<right offset="-4" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+
+
+	<template name="helper_ct">
+		<help_ctbox>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Combat_Tracker</url>
+		</help_ctbox>
+	</template>
+	<template name="helper_ps">
+		<help_partysheet>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Party_Sheet</url>
+		</help_partysheet>
+	</template>
+	<template name="helper_tables">
+		<help_campaignlist_tables>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Tables</url>
+		</help_campaignlist_tables>
+	</template>
+	<template name="helper_calendar">
+		<help_calendar>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Calendar</url>
+		</help_calendar>
+	</template>
+	<template name="helper_color">
+		<help_utilitybox2>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Color</url>
+		</help_utilitybox2>
+	</template>
+	<template name="helper_lighting">
+		<help_utilitybox2>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Lighting</url>
+		</help_utilitybox2>
+	</template>
+	<template name="helper_modifiers">
+		<help_utilitybox3>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Modifiers</url>
+		</help_utilitybox3>
+	</template>
+	<template name="helper_effects">
+		<help_utilitybox3>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Effects</url>
+		</help_utilitybox3>
+	</template>
+	<template name="helper_options">
+		<help_utilitybox>
+			<url>http://www.fantasygrounds.com/wiki/index.php/Options</url>
+		</help_utilitybox>
+	</template>
+</root>

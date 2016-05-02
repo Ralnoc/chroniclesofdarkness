@@ -1,7 +1,7 @@
 -- Please see the license.html file included with this distribution for
 -- attribution and copyright information.
 
-
+-- TODO: Integrate this code into the buttongroup_tabs code so that ruleset can dynamically control charsheet tabs
 local topWidget = nil;
 local tabIndex = 1;
 local tabWidgets = {};
