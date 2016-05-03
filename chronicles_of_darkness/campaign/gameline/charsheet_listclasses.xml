@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- This file is provided under the Open Game License version 1.0a
+     For more information on OGL and related issues, see 
+       http://www.wizards.com/d20
+    
+     All producers of work derived from this definition are adviced to
+     familiarize themselves with the above license, and to take special
+     care in providing the definition of Product Identity (as specified
+     by the OGL) in their products.
+    
+     Copyright 2009 SmiteWorks Ltd.
+  -->
+
+<root version="2.0">
+  <windowclass name="charsheet_skillheader">
+    <sizelimits>
+      <minimum>
+        <height>15</height>
+      </minimum>
+      <maximum>
+        <height>15</height>
+      </maximum>
+    </sizelimits>
+    <sheetdata>
+      <StringControl name="title">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+          </left>
+          <top>
+            <anchor>top</anchor>
+          </top>
+          <right>
+            <anchor>right</anchor>
+          </right>
+        </anchored>
+        <font>sheetlabel</font>
+        <static/>
+        <center/>
+      </StringControl>
+      <!-- hidden fields -->
+      <numbercontrol name="order">
+        <bounds>0,0,0,0</bounds>
+        <invisible/>
+      </numbercontrol>
+    </sheetdata>
+  </windowclass>
+  
+  <windowclass name="charsheet_skillitem">
+    <sizelimits>
+      <minimum>
+        <height>15</height>
+      </minimum>
+      <maximum>
+        <height>15</height>
+      </maximum>
+    </sizelimits>
+    <script>
+      function onDrag(button, x, y, dragdata)
+        dragdata.setType("number");
+        dragdata.setNumberData(rank.getValue());
+        dragdata.setDescription(name.getValue());
+        return true;
+      end
+
+      function onDoubleClick(...)
+        ModifierStack.addSlot(name.getValue(), rank.getValue());
+        return true;
+      end
+    </script>
+    <sheetdata>
+      <StringField name="name">
+        <anchored>
+          <left>
+            <anchor>left</anchor>
+          </left>
+          <top>
+            <anchor>top</anchor>
+            <offset>-3</offset>
+          </top>
+          <size>
+            <height>18</height>
+          </size>
+        </anchored>
+        <font>sheettext</font>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+
+          function onDoubleClick(...)
+            if super and super.onDoubleClick then
+              super.onDoubleClick(...);
+            end
+            return window.onDoubleClick(...);
+          end
+        </script>
+        <static/>
+      </StringField>
+      <DotControl name="rank">
+        <anchored>
+          <right>
+            <anchor>right</anchor>
+          </right>
+          <top>
+            <anchor>top</anchor>
+            <offset>2</offset>
+          </top>
+          <size>
+            <width>50</width>
+            <height>10</height>
+          </size>
+        </anchored>
+        <titlefield>name</titlefield>
+      </DotControl>
+      <StringField name="specialties">
+        <anchored>
+          <top>
+            <anchor>top</anchor>
+            <offset>-3</offset>
+          </top>
+          <left>
+            <parent>name</parent>
+            <anchor>right</anchor>
+            <offset>5</offset>
+          </left>
+          <right>
+            <parent>rank</parent>
+            <anchor>left</anchor>
+            <offset>-5</offset>
+          </right>
+          <size>
+            <height>18</height>
+          </size>
+        </anchored>
+        <font>sheettext</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </frame>
+        <keyeditframe>
+          <name>shadelinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </keyeditframe>
+      </StringField>
+      <!-- hidden fields -->
+      <numberfield name="order">
+        <bounds>0,0,0,0</bounds>
+        <invisible/>
+      </numberfield>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="charsheet_moralityitem">
+    <sizelimits>
+      <minimum>
+        <height>17</height>
+      </minimum>
+      <maximum>
+        <height>17</height>
+      </maximum>
+    </sizelimits>
+    <script>
+      local valuenode = nil;
+      
+      function onInit()
+        valuenode = windowlist.getDatabaseNode().getParent().createChild("value","number");
+        level.getDatabaseNode().onUpdate = refresh;
+        valuenode.onUpdate = refresh;
+        refresh();
+      end
+      
+      function refresh()
+        if level.getValue()&gt;6 then
+          degeneration.setValue("");
+          degeneration.setReadOnly(true);
+          degeneration.setFrame("rowshade");
+        else
+          degeneration.setReadOnly(false);
+          degeneration.setFrame("textlinesmall",0,-2,0,0);
+        end
+        if valuenode.getValue()&lt;level.getValue() then
+          check.setState(false);
+        else
+          check.setState(true);
+        end
+        if valuenode.getValue()&gt;level.getValue() then
+          degeneration.setValue("");
+        end
+      end
+      
+      function checked()
+        valuenode.setValue(level.getValue());
+      end
+    </script>
+    <sheetdata>
+      <NumberField name="level">
+        <bounds>0,2,15,13</bounds>
+        <font>sheettext</font>
+        <readonly/>
+      </NumberField>
+      <StringField name="degeneration">
+        <anchored>
+          <top>
+            <anchor>top</anchor>
+            <offset>-1</offset>
+          </top>
+          <left>
+            <anchor>left</anchor>
+            <offset>20</offset>
+          </left>
+          <right>
+            <anchor>right</anchor>
+            <offset>-15</offset>
+          </right>
+          <size>
+            <height>18</height>
+          </size>
+        </anchored>
+        <font>sheettext</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </frame>
+        <keyeditframe>
+          <name>shadelinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </keyeditframe>
+      </StringField>
+      <checkbox name="check">
+        <bounds>-10,4,10,10</bounds>
+        <sourceless/>
+        <stateicons>
+          <on>dot_checked</on>
+          <off>dot_unchecked</off>
+        </stateicons>
+        <script>
+          function onClickDown(...)
+            window.checked();
+          end
+        </script>
+      </checkbox>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="charsheet_weaponitem">
+    <sizelimits>
+      <minimum>
+        <height>20</height>
+      </minimum>
+      <maximum>
+        <height>20</height>
+      </maximum>
+    </sizelimits>
+    <script>
+      function onDrag(button, x, y, dragdata)
+        dragdata.setType("number");
+        dragdata.setNumberData(damage.getValue());
+        dragdata.setDescription(name.getValue());
+        return true;
+      end
+
+      function onDoubleClick()
+        ModifierStack.addSlot(name.getValue(), damage.getValue());
+        return true;
+      end
+    </script>
+    <sheetdata>
+      <textlistitemvalue name="name">
+        <bounds>0,1,-140,18</bounds>
+        <font>sheettext</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </frame>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+
+          function onDoubleClick(...)
+            if super and super.onDoubleClick then
+              super.onDoubleClick(...);
+            end
+            return window.onDoubleClick(...);
+          end
+        </script>
+      </textlistitemvalue>
+      <NumberField name="short" source="range.short">
+        <bounds>-135,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <hideonvalue>0</hideonvalue>
+      </NumberField>
+      <NumberField name="medium" source="range.medium">
+        <bounds>-100,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <hideonvalue>0</hideonvalue>
+      </NumberField>
+      <NumberField name="long" source="range.long">
+        <bounds>-65,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <hideonvalue>0</hideonvalue>
+      </NumberField>
+      <NumberField name="damage">
+        <bounds>-30,5,30,13</bounds>
+        <keyeditframe>
+          <name>shadeline</name>
+          <offset>0,4,0,0</offset>
+        </keyeditframe>
+        <frame>
+          <name>textline</name>
+          <offset>0,4,0,0</offset>
+        </frame>
+        <font>sheetlabel</font>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+
+          function onDoubleClick(...)
+            return window.onDoubleClick(...);
+          end
+        </script>
+      </NumberField>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="charsheet_listitem">
+    <sizelimits>
+      <minimum>
+        <height>20</height>
+      </minimum>
+      <maximum>
+        <height>20</height>
+      </maximum>
+    </sizelimits>
+    <script>
+      function onDrag(button, x, y, dragdata)
+        dragdata.setType("number");
+        dragdata.setNumberData(dots.getValue());
+        dragdata.setDescription(name.getValue());
+        return true;
+      end
+
+      function onDoubleClick()
+        ModifierStack.addSlot(name.getValue(), dots.getValue());
+        return true;
+      end
+    </script>
+    <sheetdata>
+      <textlistitemvalue name="name">
+        <bounds>0,1,-55,18</bounds>
+        <font>sheettext</font>
+        <frame>
+          <name>textlinesmall</name>
+          <offset>0,-2,0,0</offset>
+        </frame>
+        <script>
+          function onDrag(...)
+            return window.onDrag(...);
+          end
+
+          function onDoubleClick(...)
+            if super and super.onDoubleClick then
+              super.onDoubleClick(...);
+            end
+            return window.onDoubleClick(...);
+          end
+        </script>
+      </textlistitemvalue>
+      <DotControl name="dots">
+        <bounds>-50,6,50,10</bounds>
+        <titlefield>name</titlefield>
+      </DotControl>
+    </sheetdata>
+  </windowclass>
+  
+</root>

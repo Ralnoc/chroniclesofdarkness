@@ -44,7 +44,7 @@ function activateTab(index)
 	thistab = tabs[tabIndex];
 
 	-- Move helper graphic into position
-	topWidget.setPosition("topleft", 5, 67*(tabIndex-1)+7);
+	topWidget.setPosition("topleft", 8, 67*(tabIndex-1)+7);
 	if tabIndex == 1 then
 		topWidget.setVisible(false);
 	else

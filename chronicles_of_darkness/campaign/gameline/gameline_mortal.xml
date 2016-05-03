@@ -23,29 +23,30 @@
     <!--<bottomright rect="503,589,22,22" />-->
   <!--</framedef>-->
 
-  <!--&lt;!&ndash; window classes &ndash;&gt;-->
-  <!--<includefile source="charsheet_listclasses.xml" />-->
-  <!--<includefile source="charsheet_main.xml" />-->
-  <!--<includefile source="charsheet_other.xml" />-->
-  <!--<includefile source="charsheet_notes.xml" />-->
-  <!---->
+  <!-- window classes -->
+  <includefile source="campaign/gameline/charsheet_listclasses.xml" />
+  <includefile source="strings/strings_mortal.xml" />
+  <includefile source="campaign/gameline/record_char_mortal_main.xml" />
+  <includefile source="campaign/gameline/record_char_mortal_other.xml" />
+  <includefile source="campaign/gameline/record_char_mortal_notes.xml" />
+
   <!-- charsheet templates -->
   <template name="mortal_main">
     <subwindow>
       <bounds>0,0,-23,-1</bounds>
-      <class>charsheet_main</class>
+      <class>mortal_main</class>
     </subwindow>
   </template>
   <template name="mortal_other">
     <subwindow>
       <bounds>0,0,-23,-1</bounds>
-      <class>charsheet_other</class>
+      <class>mortal_other</class>
     </subwindow>
   </template>
   <template name="mortal_notes">
     <subwindow>
       <bounds>0,0,-23,-1</bounds>
-      <class>charsheet_notes</class>
+      <class>mortal_notes</class>
     </subwindow>
   </template>
   <template name="mortal_tabs">
@@ -58,9 +59,7 @@
   </template>
 
   <!--#TODO: Resolve the below errors when creating character sheets with gameline data in place -->
-  <!--Script Error: [string "charsheet"]:1: attempt to index upvalue 'tabcontrol' (a nil value)-->
-
-
+  <!--Tabs disappear from character sheets when the ruleset is reloaded in any way and never return.-->
 
   <script name="MortalScript">
     local GameLine =
