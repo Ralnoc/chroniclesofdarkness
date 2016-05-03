@@ -6,7 +6,7 @@
 -->
 
 <root>
-	<windowclass name="mortal_main">
+	<windowclass name="char_main">
 		<margins control="0,0,0,2" />
 		<script>
 			function onInit()

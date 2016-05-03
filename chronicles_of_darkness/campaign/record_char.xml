@@ -61,6 +61,8 @@
 				--[[ create the new windows ]]
 				setFrame(gameline.CharSheet.Frame);
 				tabcontrol = createControl(gameline.CharSheet.TabControl,"tabs");
+				Debug.console(gameline.CharSheet.TabControl)
+				Debug.console(tabcontrol)
 				for i,tab in ipairs(gameline.CharSheet.Tabs) do
 					subwindows[i] = createControl(tab.Template,tab.Name);
 					tabcontrol.addTab(tab.Name,tab.Icon,nil);
@@ -244,8 +246,6 @@
 			</subwindow>
 
 			<tabs_charsheet>
-				<tabcontrol name="tabs" />
-				<!--<activate>1</activate>-->
 			</tabs_charsheet>
 		
 			<close_charsheet />

@@ -77,13 +77,6 @@
 		</stringfield>
 	</template>
 
-	<template name="tabcontrol">
-		<genericcontrol>
-			<tab mergerule="resetandadd"/>
-			<script file="campaign/scripts/template_tabcontrol.lua" />
-		</genericcontrol>
-	</template>
-
 	<template name="button_charactivate">
 		<buttoncontrol>
 			<icon normal="button_speak" pressed="button_speak_down" />
