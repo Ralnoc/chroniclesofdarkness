@@ -125,10 +125,6 @@
 	<!-- GAME LINE SUPPORT -->
 	<script name="LineManager" file="campaign/scripts/linemanager.lua" />
 
-	<!-- Mortal Gameline -->
-	<includefile source="campaign/gameline/gameline_mortal.xml" />
-
-
 	<includefile source="campaign/record_quest.xml" />
 	<includefile source="campaign/record_npc.xml" />
 	<includefile source="campaign/record_encounter.xml" />
@@ -153,4 +149,8 @@
 	<includefile source="ps/ps_order.xml" />
 	<script name="PartyManager" file="ps/scripts/manager_ps.lua" />
 	<script name="PartyLootManager" file="ps/scripts/manager_ps_loot.lua" />
+
+
+	<!-- Mortal Gameline -->
+	<includefile source="campaign/gameline/gameline_mortal.xml" />
 </root>

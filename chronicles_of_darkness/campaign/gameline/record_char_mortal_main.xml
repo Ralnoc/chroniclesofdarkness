@@ -7,5 +7,34 @@
 
 <root>
 	<windowclass name="mortal_main">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+			local linename = getDatabaseNode().createChild("gameline","string").getValue();
+			local gameline = LineManager.getLine(linename);
+			if gameline and gameline.onWindowInit then
+			gameline.onWindowInit(self);
+			end
+			end
+		</script>
+		<sheetdata>
+			<frame_char name="attributesframe">
+				<bounds>15,0,-1,-5</bounds>
+			</frame_char>
+			<label>
+				<anchored offset="0,10" position="insidetop" to="attributesframe" height="15" width="140"/>
+				<static>Intelligence</static>
+				<script>
+					function onDrag(...)
+					return window.intelligence.onDrag(...);
+					end
+
+					function onDoubleClick(...)
+					ModifierStack.addSlot("Intelligence", window.intelligence.getValue());
+					return true;
+					end
+				</script>
+			</label>
+		</sheetdata>
 	</windowclass>
 </root>

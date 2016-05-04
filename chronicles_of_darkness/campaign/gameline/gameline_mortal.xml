@@ -24,8 +24,8 @@
   <!--</framedef>-->
 
   <!-- window classes -->
-  <includefile source="campaign/gameline/charsheet_listclasses.xml" />
   <includefile source="strings/strings_mortal.xml" />
+  <includefile source="campaign/gameline/charsheet_listclasses.xml" />
   <includefile source="campaign/gameline/record_char_mortal_main.xml" />
   <includefile source="campaign/gameline/record_char_mortal_other.xml" />
   <includefile source="campaign/gameline/record_char_mortal_notes.xml" />
@@ -33,19 +33,19 @@
   <!-- charsheet templates -->
   <template name="mortal_main">
     <subwindow>
-      <bounds>0,0,-23,-1</bounds>
+      <bounds>0,100,-30,-10</bounds>
       <class>mortal_main</class>
     </subwindow>
   </template>
   <template name="mortal_other">
     <subwindow>
-      <bounds>0,0,-23,-1</bounds>
+      <bounds>0,100,-30,-10</bounds>
       <class>mortal_other</class>
     </subwindow>
   </template>
   <template name="mortal_notes">
     <subwindow>
-      <bounds>0,0,-23,-1</bounds>
+      <bounds>0,100,-30,-10</bounds>
       <class>mortal_notes</class>
     </subwindow>
   </template>
